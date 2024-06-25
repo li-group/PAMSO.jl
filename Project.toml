@@ -3,6 +3,11 @@ uuid = "1b84e714-819e-4501-85a9-ebfadece37ed"
 authors = ["Asha Ramanujam"]
 version = "1.0.0-DEV"
 
+[deps]
+BayesOpt = "8b8fa57b-2f72-5ccd-8d28-750de228707b"
+NOMAD = "02130f1c-4665-5b79-af82-ff1385104aa0"
+Optim = "429524aa-4258-5aef-a3af-852621145aeb"
+
 [compat]
 julia = "1.6.7"
 
