@@ -1,7 +1,7 @@
 module PAMSO
 using NOMAD
-using BayesOpt
-using Optim
+#using BayesOpt
+#using Optim
 # Write your package code here.
 #module PAMSO
 export PAMSO_block
