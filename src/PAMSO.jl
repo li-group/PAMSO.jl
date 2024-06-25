@@ -22,11 +22,9 @@ mutable struct PAMSO_block
     function PAMSO_block(high_level_model,low_level_model,algo,dimmensions,input_types,lb,ub,init,func_eval)
     	function MBBF(x)
     		high_level_des = high_level_model(x)
- 			obj = low_level_model(high_level_des)
- 			outp = DataFrame(A = obj,B = x[1],C = x[2])
-    		CSV.write("Gen_expansion/results_exp4.csv",outp,append = true)
- 			return obj
- 		end
+ 		obj = low_level_model(high_level_des)
+ 		return obj
+ 	end
 
 	    	
 	    new(high_level_model,low_level_model,algo,dimmensions,input_types,lb,ub,init,MBBF,[],func_eval)
