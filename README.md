@@ -25,7 +25,7 @@ As an example, we try to solve a generator planning problem. The problem is base
 2. We create a PAMSO_block and initialize it with the high-level function (gen_highlevel) and low-level function (gen_lowlevel) as well as the DFO Algorithm to be used (can be "MADS","Bayesopt" or "PSO"),number of parameters (dimmensions) ,input_types (can be integer ("I") or real ("R")),lower bounds of parameters (lb),upper bounds of parameters ub,initial set of parameters (init), and the number of function evaluations (func_eval). The code is as follows:
 
     ```
-  PAMSO_toy = PAMSO.PAMSO_block(gen_highlevel, gen_lowlevel, "MADS", 2, ["R","R"],[0.0,0.0],[10.0,1000.0],[1.0,1.0],3)
+  PAMSO_toy = PAMSO.PAMSO_block'(gen_highlevel, gen_lowlevel, "MADS", 2, '["R","R"'],'[0.0,0.0'],'[10.0,1000.0'],'[1.0,1.0'],3')
   ```
 
 3. We then run the DFO agorithms on the associated MBBF using the following code:
