@@ -27,12 +27,10 @@ As an example, we try to solve a generator planning problem. The problem is base
 ```julia
   PAMSO_toy = PAMSO.PAMSO_block(gen_highlevel, gen_lowlevel, "MADS", 2, ["R","R"],[0.0,0.0],[10.0,1000.0],[1.0,1.0],300)
 ```
-##Test
-3. We then run the DFO agorithms on the associated MBBF using the following code:
- 
-  ```julia
+3. We then run the DFO agorithms on the associated MBBF using the following code: 
+```julia
   PAMSO.run(PAMSO_toy)
-  ```
+```
 PAMSO_toy.Param_best holds the best set of parameters after training the parameters using the DFO solvers.
 
 The solution can be compared to the solution from the full-space model. The full-space model is coded in the file full_space_model.jl. Camerin Lee constributed to coding the full space model and data for the example.
