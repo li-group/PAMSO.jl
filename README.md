@@ -10,7 +10,7 @@ This package provides code to implement Parametric Autotuning Multi-time Scale O
 
 ```julia
 test(["a", "b"])
-```julia
+```
 ## [Overview](#overview)
 Multi-time scale optimization models involving decision variables in multiple time scales have been used in different fields. To address scalability challenges in existing algorithms, we present the Parametric Autotuning Multi-time Scale Optimization algorithm (PAMSO) as a solution. PAMSO involves tuning parameters in a low-fidelity optimization model to help solve a higher-fidelity multi-time scale optimization model.  The tunable parameters represent the mismatch between the low-fidelity and high-fidelity models and are tuned by forming a black box with these models which is optimized using Derivative-Free Optimization methods. 
 
