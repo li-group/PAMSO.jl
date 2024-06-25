@@ -1,5 +1,6 @@
 module PAMSO
 using NOMAD
+using LDLFactorizations
 #using BayesOpt
 #using Optim
 # Write your package code here.
