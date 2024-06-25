@@ -2,7 +2,7 @@ module PAMSO
 
 # Write your package code here.
 #module PAMSO
-
+export PAMSO_block
 mutable struct PAMSO_block
     high_level_model::Function
     low_level_model::Function
