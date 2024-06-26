@@ -1,8 +1,8 @@
 module PAMSO
 using NOMAD
-using LDLFactorizations
-#using BayesOpt
-#using Optim
+
+using BayesOpt
+using Optim
 # Write your package code here.
 #module PAMSO
 export PAMSO_block
