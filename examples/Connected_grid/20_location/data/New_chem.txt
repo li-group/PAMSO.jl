@@ -1,0 +1,10 @@
+Consumers - j3 - Cl2,H2
+j8 - Cl2,H2
+j1 - NaOH
+j4 - NaOH
+
+Producers - j2 - Water
+j7- NaCl 
+j5- O2
+j6- Water,NaCl,O2
+

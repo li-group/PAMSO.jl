@@ -1,0 +1,187 @@
+
+Gurobi 11.0.0 (linux64) logging started Wed 26 Jun 2024 09:04:07 AM EDT
+
+Set parameter LogFile to value "1week_algo_2.txt"
+Set parameter TimeLimit to value 150
+Set parameter Presolve to value 2
+Set parameter Threads to value 8
+Set parameter MIPGap to value 0.03
+Gurobi Optimizer version 11.0.0 build v11.0.0rc2 (linux64 - "CentOS Linux 7 (Core)")
+
+CPU model: AMD EPYC 7643 48-Core Processor, instruction set [SSE2|AVX|AVX2]
+Thread count: 48 physical cores, 96 logical processors, using up to 8 threads
+
+Optimize a model with 1154 rows, 819 columns and 1931 nonzeros
+Model fingerprint: 0x0a279a1f
+Model has 308 quadratic constraints
+Model has 28 general constraints
+Variable types: 665 continuous, 154 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [2e-01, 2e+00]
+  QMatrix range    [5e-01, 1e+00]
+  QLMatrix range   [1e+00, 1e+00]
+  Objective range  [5e+00, 1e+03]
+  Bounds range     [2e+01, 1e+03]
+  RHS range        [1e+00, 1e+03]
+Presolve added 0 rows and 860 columns
+Presolve removed 845 rows and 0 columns
+Presolve time: 0.02s
+Presolved: 925 rows, 1679 columns, 4489 nonzeros
+Presolved model has 25 SOS constraint(s)
+Presolved model has 308 bilinear constraint(s)
+
+Solving non-convex MIQCP
+
+Variable types: 1525 continuous, 154 integer (0 binary)
+Root relaxation presolve removed 540 rows and 180 columns
+Root relaxation presolved: 385 rows, 1499 columns, 3384 nonzeros
+
+
+Root relaxation: objective -1.345082e+05, 197 iterations, 0.00 seconds (0.00 work units)
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0 -134508.20    0  117          - -134508.20      -     -    0s
+H    0     0                    139737.50000 -134508.20   196%     -    0s
+H    0     0                    139315.40488 -134508.20   197%     -    0s
+     0     0 -134508.20    0   98 139315.405 -134508.20   197%     -    0s
+     0     0 -134508.20    0   82 139315.405 -134508.20   197%     -    0s
+     0     0 -134508.20    0   80 139315.405 -134508.20   197%     -    0s
+H    0     0                    136146.90285 -134508.20   199%     -    0s
+     0     0 -134508.20    0   79 136146.903 -134508.20   199%     -    0s
+     0     0 -134508.20    0   82 136146.903 -134508.20   199%     -    0s
+H    0     0                    116431.90477 -134508.20   216%     -    0s
+     0     0 -134508.20    0   79 116431.905 -134508.20   216%     -    0s
+     0     0 -134508.20    0   80 116431.905 -134508.20   216%     -    0s
+     0     0 -134508.20    0   77 116431.905 -134508.20   216%     -    0s
+     0     0 -134508.20    0   77 116431.905 -134508.20   216%     -    0s
+     0     0 -134508.20    0   77 116431.905 -134508.20   216%     -    0s
+H    0     0                    85919.735272 -134508.20   257%     -    0s
+     0     2 -134508.20    0   77 85919.7353 -134508.20   257%     -    0s
+H   35    40                    83823.698463 -134508.20   260%  46.1    0s
+H  175   203                    -43186.55107 -134508.20   211%  29.5    0s
+H 1374  1587                    -52584.21875 -134508.20   156%  10.6    0s
+H 1489   692                    -134508.2031 -134508.20  0.00%  10.0    0s
+
+Cutting planes:
+  Gomory: 23
+  MIR: 51
+  RLT: 60
+
+Explored 1668 nodes (15901 simplex iterations) in 0.65 seconds (0.55 work units)
+Thread count was 8 (of 96 available processors)
+
+Solution count 9: -134508 -52584.2 -43186.6 ... 139738
+No other solutions better than -134508
+
+Optimal solution found (tolerance 3.00e-02)
+Warning: max constraint violation (1.2407e-02) exceeds tolerance
+Warning: max general constraint violation (1.2407e-02) exceeds tolerance
+  Piecewise linearization of function constraints often causes big violation.
+  Try to adjust the settings of the related parameters, such as FuncPieces.
+Best objective -1.345082031250e+05, best bound -1.345082031250e+05, gap 0.0000%
+
+User-callback calls 4007, time in user-callback 0.00 sec
+
+Gurobi 11.0.0 (linux64) logging started Wed 26 Jun 2024 09:04:25 AM EDT
+
+Set parameter LogFile to value "1week_algo_2.txt"
+Set parameter TimeLimit to value 150
+Set parameter Presolve to value 2
+Set parameter Threads to value 8
+Set parameter MIPGap to value 0.03
+Gurobi Optimizer version 11.0.0 build v11.0.0rc2 (linux64 - "CentOS Linux 7 (Core)")
+
+CPU model: AMD EPYC 7643 48-Core Processor, instruction set [SSE2|AVX|AVX2]
+Thread count: 48 physical cores, 96 logical processors, using up to 8 threads
+
+Optimize a model with 1154 rows, 819 columns and 1931 nonzeros
+Model fingerprint: 0xbbc71c9e
+Model has 308 quadratic constraints
+Model has 28 general constraints
+Variable types: 665 continuous, 154 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [2e-01, 2e+00]
+  QMatrix range    [5e-01, 1e+00]
+  QLMatrix range   [1e+00, 1e+00]
+  Objective range  [5e+00, 3e+04]
+  Bounds range     [2e+01, 1e+03]
+  RHS range        [1e+00, 1e+03]
+Presolve added 0 rows and 869 columns
+Presolve removed 836 rows and 0 columns
+Presolve time: 0.02s
+Presolved: 934 rows, 1688 columns, 4993 nonzeros
+Presolved model has 25 SOS constraint(s)
+Presolved model has 308 bilinear constraint(s)
+
+Solving non-convex MIQCP
+
+Variable types: 1534 continuous, 154 integer (0 binary)
+Root relaxation presolve removed 540 rows and 180 columns
+Root relaxation presolved: 394 rows, 1508 columns, 3888 nonzeros
+
+
+Root relaxation: objective 4.409912e+05, 464 iterations, 0.01 seconds (0.01 work units)
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0 440991.205    0  215          - 440991.205      -     -    0s
+H    0     0                    4192125.0000 440991.205  89.5%     -    0s
+     0     0 565155.769    0  175 4192125.00 565155.769  86.5%     -    0s
+     0     0 565167.441    0  172 4192125.00 565167.441  86.5%     -    0s
+     0     0 589995.540    0  218 4192125.00 589995.540  85.9%     -    0s
+     0     0 591730.896    0  211 4192125.00 591730.896  85.9%     -    0s
+     0     0 643503.574    0  228 4192125.00 643503.574  84.6%     -    0s
+     0     0 643730.894    0  219 4192125.00 643730.894  84.6%     -    0s
+     0     0 647173.458    0  216 4192125.00 647173.458  84.6%     -    0s
+     0     0 647240.866    0  205 4192125.00 647240.866  84.6%     -    0s
+     0     0 649543.800    0  210 4192125.00 649543.800  84.5%     -    0s
+     0     0 649604.989    0  217 4192125.00 649604.989  84.5%     -    0s
+     0     0 649816.273    0  215 4192125.00 649816.273  84.5%     -    0s
+     0     0 649821.772    0  207 4192125.00 649821.772  84.5%     -    0s
+     0     0 649928.688    0  196 4192125.00 649928.688  84.5%     -    0s
+     0     0 649928.688    0  196 4192125.00 649928.688  84.5%     -    0s
+     0     2 649928.688    0  196 4192125.00 649928.688  84.5%     -    0s
+H  165   165                    3947647.6043 933372.903  76.4%  64.4    0s
+H  856   847                    3144593.3130 933372.903  70.3%  41.7    0s
+H  857   836                    3095138.6669 933372.903  69.8%  41.6    0s
+H  858   461                    2538026.7051 933372.903  63.2%  41.6    0s
+H 1959  1459                    2505297.5883 934190.758  62.7%  33.1    1s
+H 3135  2299                    2503504.4926 943045.076  62.3%  27.8    1s
+H 3136  2185                    2503494.4926 943045.076  62.3%  27.8    1s
+H 3250  2149                    2503484.4926 1187701.77  52.6%  34.2    2s
+H 5777  1802                    2123466.7924 1345001.48  36.7%  30.5    3s
+H 6051  1566                    2123456.7924 1345001.48  36.7%  31.0    4s
+H 7097  1505                    2122763.0943 1726853.25  18.7%  33.7    4s
+H 7157  1388                    2122663.7180 1726853.25  18.6%  33.6    4s
+H 7298  1365                    2122653.7180 1726853.25  18.6%  33.5    4s
+H 7563  1370                    2122635.0231 1726853.25  18.6%  33.0    4s
+  8183  1477     cutoff   19      2122635.02 1787678.95  15.8%  33.7    5s
+H 8198  1425                    2122339.1089 1787678.95  15.8%  33.8    5s
+H 8944  1617                    2119660.5727 1849172.62  12.8%  34.8    5s
+H10096  1651                    2113035.9727 1909138.03  9.65%  35.8    5s
+H10440   876                    2074985.5352 1909138.03  7.99%  35.9    5s
+H11272   640                    2071895.7634 1942336.67  6.25%  36.5    6s
+
+Cutting planes:
+  Gomory: 73
+  MIR: 353
+  Flow cover: 31
+  RLT: 479
+  Relax-and-lift: 1
+
+Explored 12147 nodes (460923 simplex iterations) in 6.61 seconds (8.33 work units)
+Thread count was 8 (of 96 available processors)
+
+Solution count 10: 2.0719e+06 2.07499e+06 2.11304e+06 ... 2.12346e+06
+
+Optimal solution found (tolerance 3.00e-02)
+Warning: max constraint violation (1.3790e-02) exceeds tolerance
+Warning: max general constraint violation (1.3790e-02) exceeds tolerance
+  Piecewise linearization of function constraints often causes big violation.
+  Try to adjust the settings of the related parameters, such as FuncPieces.
+Best objective 2.071895763441e+06, best bound 2.021329019556e+06, gap 2.4406%
+
+User-callback calls 26640, time in user-callback 0.00 sec

@@ -1,0 +1,65 @@
+﻿Data,Chemical,,Number,Unit
+Base,Cl2,,,
+Chemical Cost,H2,,2.08,$/kg
+Chemical Cost,O2,,0.052,$/kg
+Chemical Cost,NaCl,,0.042,$/kg
+Chemical Cost,Cl2,,0.194046307,$/kg
+Chemical Cost,Water,,0,$/kg
+Chemical Cost,NaOH,,0.768467475,$/kg
+Transportation,H2,,0.36,$/(ton-mile)
+Transportation,O2,,0.36,$/(ton-mile)
+Transportation,NaCl,,0.36,$/(ton-mile)
+Transportation,Cl2,,0.36,$/(ton-mile)
+Transportation,Water,,0.36,$/(ton-mile)
+Transportation,NaOH,,0.36,$/(ton-mile)
+alpha,O2,SC,0,
+alpha,H2,SC,1,
+alpha,NaCl,SC,-2,
+alpha,Cl2,SC,1,
+alpha,NaOH,SC,2,
+alpha,Water,SC,-2,
+alpha,O2,OD,-0.5,
+alpha,H2,OD,0,
+alpha,NaCl,OD,-2,
+alpha,Cl2,OD,1,
+alpha,NaOH,OD,2,
+alpha,Water,OD,-1,
+alpha,O2,Shut,0,
+alpha,H2,Shut,0,
+alpha,NaCl,Shut,0,
+alpha,Cl2,Shut,0,
+alpha,NaOH,Shut,0,
+alpha,Water,Shut,0,
+S,Cl2,,1,
+S,H2,,1,
+S,O2,,-1,
+S,NaCl,,-1,
+S,NaOH,,1,
+S,Water,,-1,
+OCC,,,8271987,$
+FOC,,,1351784.43,$
+C_max,Cl2,SC,1.1,ton/hr
+C_min,Cl2,SC,0.5,ton/hr
+tl,,,20,years
+C_max,Cl2,OD,1.1,ton/hr
+C_min,Cl2,OD,0.5,ton/hr
+C_max,Cl2,Shut,0,ton/hr
+C_min,Cl2,Shut,0,ton/hr
+F,Cl2,,28,KW/ton
+F,H2,,4390.22,KW/ton
+F,O2,,-51,KW/ton
+F,NaCl,,0,KW/ton
+F,NaOH,,0,KW/ton
+F,Water,,0,KW/ton
+theta,SC,SC,0,
+theta,SC,OD,2,
+theta,SC,Shut,2,
+theta,OD,SC,2,
+theta,OD,OD,0,
+theta,OD,Shut,2,
+theta,Shut,SC,2,
+theta,Shut,OD,2,
+theta,Shut,Shut,0,
+f_lin,,SC,2120.566,KJ/ton
+f_lin,,OD,1413.106,KJ/ton
+f_lin,,Shut,0,KJ/ton

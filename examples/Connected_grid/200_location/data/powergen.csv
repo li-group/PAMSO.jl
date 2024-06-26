@@ -1,0 +1,7 @@
+﻿Data,Component,Value,Units
+FOC,Solar panel,24000,$
+OCC,Solar panel,2578671.46,$
+FOC,Wind Turbine,4200,$
+OCC,Wind Turbine,740000,$
+tl,Solar panel,30,years
+tl,Wind Turbine,30,years

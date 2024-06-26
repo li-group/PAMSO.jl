@@ -1,0 +1,10 @@
+﻿Data,Component,Value,Units
+tl,12 KV,30,years
+OCC,12 KV,2.55,$/m
+FOC,12 KV,0,$
+tl,12 KV,30,years
+Res,12 KV,6.44E-06,pu/m
+Ind,12 KV,8.68E-07,pu/m
+S_base,12 KV,1000,kVA
+V_base,12 KV,12,kV
+Fl_max,12 KV,2909.85,kVA
