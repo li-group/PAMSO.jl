@@ -1,5 +1,5 @@
-name = "PAMSO"
-uuid = "9699996c-47c9-4503-b34e-732d592a0b3e"
+name = "PAMSO1"
+uuid = "78b39751-c488-473e-82f3-f3922d96a1c7"
 authors = ["Asha Ramanujam"]
 version = "1.0.0-DEV"
 
@@ -7,6 +7,7 @@ version = "1.0.0-DEV"
 BayesOpt = "8b8fa57b-2f72-5ccd-8d28-750de228707b"
 NOMAD = "02130f1c-4665-5b79-af82-ff1385104aa0"
 Optim = "429524aa-4258-5aef-a3af-852621145aeb"
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 
 [compat]
 julia = "1.6.7"
