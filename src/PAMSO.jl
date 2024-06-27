@@ -75,7 +75,7 @@ function run(PAMSO_block)
 		if("I" in PAMSO_block.input_types)
 			println("Wrong algorithm. Use MADS")
 		else
-			o = Optim.Options(iterations = int(PAMSO_block.func_eval/15)-1)
+			o = Optim.Options(iterations = min(trunc(Int,PAMSO_block.func_eval/15)-1),1)
 			res = optimize(PAMSO_block.MBBF,PAMSO_block.lb, PAMSO_block.ub, PAMSO_block.init, ParticleSwarm(;lower,upper,n_particles = 15),o)
 			PAMSO_block.Param_best = Optim.minimizer(res)
 		end
