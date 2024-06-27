@@ -4,8 +4,6 @@ using Random
 Random.seed!(1)
 @testset "PAMSO.jl" begin
     # Write your tests here.
-    root = pwd()
-    cd(joinpath(root,"examples","Gen_expanison"))
     include("full_space_model.jl")
     include("high_level_model.jl")
     include("low_level_model.jl")
