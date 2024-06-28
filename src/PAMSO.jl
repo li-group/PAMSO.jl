@@ -144,7 +144,7 @@ function gen_problem(case)
 		include("low_level_model.jl")
 		params = PAMSO_params([1.0,1.0,0.0],[0.0,0.0,0.0],[10.0,10.0,1000.0], ["R","R","R"])
 		PAMSO_problem = PAMSO_block(gen_highlevel, gen_lowlevel, fs_model, 3, params)
-		cd(root)
+		cd(src_dir)
 		return PAMSO_problem
 	end
 
