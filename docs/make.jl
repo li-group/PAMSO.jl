@@ -6,7 +6,8 @@ makedocs(
     modules = [PAMSO],
     format = Documenter.HTML(prettyurls = true),
     pages = ["Home" => "index.md",
-           "Parameters" => "param.md"
+           "Parameters" => "param.md",
+           "Cases" => "case.md"
           ]
 )
 

@@ -107,13 +107,5 @@ end
 #Minimum capacity
 @constraint(model,[j in gen],x[j]>=b[j])
 
-# Solve the model
-optimize!(model)
 
-# Display the results
-println("Objective value: ", objective_value(model))
-println("x values: ", value.(x))
-#println("y values: ", value.(y))
-#println("y_purchased values: ", value.(y_purchased))
-obj_actual = objective_value(model)
 fs_model = model
