@@ -38,7 +38,7 @@ mutable struct PAMSO_block
     full_space_model::JuMP.Model
     MBBF::Function
     dimmensions::Int
-    params::PAMSO_params
+    param::PAMSO_params
     Param_best::Vector	
 
     function PAMSO_block(high_level_model,low_level_model,full_space_model,dimmensions,params)
