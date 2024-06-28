@@ -56,7 +56,7 @@ mutable struct PAMSO_block
 end
 
 
-function solve(PAMSO_block,algo,func_eval)
+function run(PAMSO_block,algo,func_eval)
 	if(algo=="MADS")
 
 		function bb(x)
