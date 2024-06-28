@@ -2,9 +2,10 @@ using PAMSO
 using Test
 using Random
 Random.seed!(1)
-cd(dirname(pathof(PAMSO)))
+
 @testset "PAMSO.jl" begin
     # Write your tests here.
+    cd(dirname(pathof(PAMSO)))
     PAMSO_toy = PAMSO.gen_problem("Generator expansion")
     optimize!(PAMSO_toy.full_space_model)
     obj_actual = objective_value(PAMSO_toy.full_space_model)
