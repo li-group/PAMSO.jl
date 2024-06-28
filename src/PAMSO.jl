@@ -7,6 +7,7 @@ using Optim
 #module PAMSO
 
 export PAMSO_block
+export PAMSO_params
 export run
 export gen_problem
 export set_initparams
