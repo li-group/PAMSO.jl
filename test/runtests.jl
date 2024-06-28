@@ -2,7 +2,7 @@ using PAMSO
 using Test
 using Random
 Random.seed!(1)
-cd(pathof(PAMSO))
+cd(dirname(pathof(PAMSO)))
 @testset "PAMSO.jl" begin
     # Write your tests here.
     PAMSO_toy = PAMSO.gen_problem("Generator expansion")
