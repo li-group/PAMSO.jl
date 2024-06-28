@@ -77,7 +77,7 @@ function run(PAMSO_block)
 		else
 			lower = PAMSO_block.lb
 			upper = PAMSO_block.ub
-			o = Optim.Options(iterations = min(trunc(Int,PAMSO_block.func_eval/20)-1,1))
+			o = Optim.Options(iterations = max(trunc(Int,PAMSO_block.func_eval/20)-1,1))
 			res = optimize(PAMSO_block.MBBF,lower, upper, PAMSO_block.init, ParticleSwarm(;lower,upper,n_particles=20),o)
 			PAMSO_block.Param_best = Optim.minimizer(res)
 		end
