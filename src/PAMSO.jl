@@ -134,11 +134,11 @@ function set_fsmodel(PAMSO_block,full_space_model)
 end
 
 function gen_problem(case)
-     root = pwd()
+     src_dir = @__DIR__
      println(pwd())	
      #cd("../")
      if(case == "Generator_expansion")
-		cd(joinpath(pwd(),"examples","Generator_expansion"))
+		cd(joinpath(src_dir, "..", "examples","Generator_expansion"))
 	    	include("full_space_model.jl")
 		include("high_level_model.jl")
 		include("low_level_model.jl")
