@@ -135,7 +135,8 @@ end
 
 function gen_problem(case)
      root = pwd()
-     cd("../")
+     println(pwd())	
+     #cd("../")
      if(case == "Generator_expansion")
 		cd(joinpath(pwd(),"examples","Generator_expansion"))
 	    	include("full_space_model.jl")
