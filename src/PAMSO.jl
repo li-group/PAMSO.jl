@@ -134,6 +134,7 @@ function set_fsmodel(PAMSO_block,full_space_model)
 	PAMSO_block.full_space_model = full_space_model
 end
 src_dir = @__DIR__
+println(src_dir)
 function gen_problem(case) 
      println(src_dir)
      if(case == "Generator expansion")
