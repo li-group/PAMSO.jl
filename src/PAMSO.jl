@@ -1,42 +1,62 @@
 module PAMSO
 using NOMAD
-
+using JuMP
 using BayesOpt
 using Optim
 # Write your package code here.
 #module PAMSO
+
 export PAMSO_block
 export run
+export gen_problem
+export set_initparams
+export set_inputtype
+export set_hlmodel
+export set_llmodel
+export set_fsmodel
+export set_lb
+export set_ube
+
+struct PAMSO_params
+	init::Vector
+	lb::Vector
+	ub::Vector
+	input_types::Vector
+
+	function PAMSO_params(init,lb,ub,input_types)
+		new(init,lb,ub,input_types)
+	end
+end
+
+
+
+
 mutable struct PAMSO_block
     high_level_model::Function
     low_level_model::Function
-    algo::String
-    dimmensions::Int
-    input_types::Vector
-    lb::Vector	
-    ub::Vector
-    init::Vector
+    full_space_model::JuMP.Model
     MBBF::Function
-    Param_best::Vector
-    func_eval::Int	
+    dimmensions::Int
+    params::PAMSO_params
+    Param_best::Vector	
 
-    function PAMSO_block(high_level_model,low_level_model,algo,dimmensions,input_types,lb,ub,init,func_eval)
+    function PAMSO_block(high_level_model,low_level_model,full_space_model,dimmensions,params)
     	function MBBF(x)
     		high_level_des = high_level_model(x)
- 		obj = low_level_model(high_level_des)
+ 			obj = low_level_model(high_level_des)
  		return obj
  	end
 
 	    	
-	    new(high_level_model,low_level_model,algo,dimmensions,input_types,lb,ub,init,MBBF,[],func_eval)
+	    new(high_level_model,low_level_model,full_space_model,MBBF,dimmensions,params,[])
 	end
 
 
 end
 
 
-function run(PAMSO_block)
-	if(PAMSO_block.algo=="MADS")
+function solve(PAMSO_block,algo,func_eval)
+	if(algo=="MADS")
 
 		function bb(x)
 		  f =  PAMSO_block.MBBF(x)
@@ -46,39 +66,39 @@ function run(PAMSO_block)
 		  bb_outputs = [f]
 		  return (success, count_eval, bb_outputs)
 		end
-		p = NomadProblem(PAMSO_block.dimmensions, 1, ["OBJ"], bb, input_types = PAMSO_block.input_types	,
-		                lower_bound=PAMSO_block.lb,
-		                upper_bound=PAMSO_block.ub,initial_mesh_size = (PAMSO_block.ub-PAMSO_block.lb)*0.5)
+		p = NomadProblem(PAMSO_block.dimmensions, 1, ["OBJ"], bb, input_types = PAMSO_block.param.input_types	,
+		                lower_bound=PAMSO_block.param.lb,
+		                upper_bound=PAMSO_block.param.ub,initial_mesh_size = (PAMSO_block.param.ub-PAMSO_block.param.lb)*0.5)
 		p.options.display_degree = 2
-		p.options.sgtelib_model_max_eval = PAMSO_block.func_eval
-		p.options.max_bb_eval = PAMSO_block.func_eval
+		p.options.sgtelib_model_max_eval = func_eval
+		p.options.max_bb_eval = func_eval
 		p.options.display_stats = ["BBE","BBO","ITER_NUM","OBJ","SOL","TIME","TOTAL_SGTE"]
 		#p.BBInputTypes = ["I","I","R"]
-		result = solve(p, PAMSO_block.init)
+		result = solve(p, PAMSO_block.param.init)
 		PAMSO_block.Param_best = result.x_best_feas
-	elseif(PAMSO_block.algo=="Bayesopt")
-		if("I" in PAMSO_block.input_types)
+	elseif(algo=="Bayesopt")
+		if("I" in PAMSO_block.param.input_types)
 			println("Wrong algorithm. Use MADS")
 		else
 
 			config = ConfigParameters()         
 			set_kernel!(config, "kMaternARD5")  
 			config.sc_type = SC_MAP
-			config.n_iterations = PAMSO_block.func_eval-10
+			config.n_iterations = func_eval-10
 			config.force_jump = 10
 			#config.n_init_samples = [0.0,0.0,0.0,0.0,1.0,0.0]
-			lowerbound = PAMSO_block.lb; upperbound = PAMSO_block.ub
+			lowerbound = PAMSO_block.param.lb; upperbound = PAMSO_block.param.ub
 			optimizer, optimum = bayes_optimization(PAMSO_block.MBBF, lowerbound, upperbound, config)
 			PAMSO_block.Param_best = optimizer
 		end
-	elseif(PAMSO_block.algo=="PSO")
-		if("I" in PAMSO_block.input_types)
+	elseif(algo=="PSO")
+		if("I" in PAMSO_block.param.input_types)
 			println("Wrong algorithm. Use MADS")
 		else
-			lower = PAMSO_block.lb
-			upper = PAMSO_block.ub
-			o = Optim.Options(iterations = max(trunc(Int,PAMSO_block.func_eval/20)-1,1))
-			res = optimize(PAMSO_block.MBBF,lower, upper, PAMSO_block.init, ParticleSwarm(;lower,upper,n_particles=20),o)
+			lower = PAMSO_block.param.lb
+			upper = PAMSO_block.param.ub
+			o = Optim.Options(iterations = max(trunc(Int,func_eval/20)-1,1))
+			res = optimize(PAMSO_block.MBBF,lower, upper, PAMSO_block.param.init, ParticleSwarm(;lower,upper,n_particles=20),o)
 			PAMSO_block.Param_best = Optim.minimizer(res)
 		end
 	else
@@ -87,6 +107,50 @@ function run(PAMSO_block)
 end
 
 	
+function set_initparams(PAMSO_block,init)
+	PAMSO_block.params.init = init
+end
+
+function set_lb(PAMSO_block,lb)
+	PAMSO_block.params.lb = lb
+end
+
+function set_ub(PAMSO_block,ub)
+	PAMSO_block.params.ub = ub
+end
+
+function set_inputtype(PAMSO_block,input_types)
+	PAMSO_block.params.input_types = input_types
+end
+
+function set_hlmodel(PAMSO_block,high_level_model)
+	PAMSO_block.high_level_model = high_level_model
+end
+function set_llmodel(PAMSO_block,low_level_model)
+	PAMSO_block.low_level_model = low_level_model
+end
+function set_fsmodel(PAMSO_block,full_space_model)
+	PAMSO_block.full_space_model = full_space_model
+end
+
+function gen_problem(case)
+     root = pwd()
+     cd("../")
+     if(case == "Generator_expansion")
+	    include(pwd(),"examples","Generator_expansion","full_space_model.jl")
+		include(pwd(),"examples","Generator_expansion","high_level_model.jl")
+		include(pwd(),"examples","Generator_expansion","low_level_model.jl"))
+		params = PAMSO_params([1.0,1.0,0.0],[0.0,0.0,0.0],[10.0,10.0,1000.0], ["R","R","R"])
+		PAMSO_problem = PAMSO_block(gen_highlevel, gen_lowlevel, fs_model, 3, params)
+		cd(root)
+		return PAMSO_problem
+	end
+
+
+
+end
+
+
 
 
 end

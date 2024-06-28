@@ -95,9 +95,6 @@ G = sum(g[i] for i in timePeriods)
 # JuMP Parameters
 function gen_highlevel(param)
     d_param = param[1]
-    a_param = Dict()
-    a_param[1] = param[2]
-    a_param[2] = 1
     model = Model(Gurobi.Optimizer)
     @variable(model, x[gen] >= 0)  # Installed capacity of generator j
     @variable(model, y[gen] >= 0)  # Operating level of generator j
@@ -111,10 +108,11 @@ function gen_highlevel(param)
 
     # Demand satisfaction constraints
     @constraint(model,sum(y[j] for j in gen) + y_purchased>= D*d_param)
-    @constraint(model,[j in gen],x[j]>=b[j]*a_param[j])
+    @constraint(model,[j in gen],x[j]>=b[j])
+    @constraint(model,[j in gen],x[j]>=param[3])
 
     # Availability constraints
-    @constraint(model, [j in gen],y[j] <= A[j] * x[j]*3)
+    @constraint(model, [j in gen],y[j] <= A[j] * x[j]*3*param[2])
 
     # Solve the model
     optimize!(model)
@@ -130,4 +128,4 @@ end
 #println("y values: ", value.(y))
 #println("y_purchased values: ", value.(y_purchased))
 
-gen_highlevel([1,83])
+

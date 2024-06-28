@@ -116,3 +116,4 @@ println("x values: ", value.(x))
 #println("y values: ", value.(y))
 #println("y_purchased values: ", value.(y_purchased))
 obj_actual = objective_value(model)
+fs_model = model
