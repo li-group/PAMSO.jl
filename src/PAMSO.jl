@@ -133,11 +133,9 @@ end
 function set_fsmodel(PAMSO_block,full_space_model)
 	PAMSO_block.full_space_model = full_space_model
 end
-
-function gen_problem(case)
-     src_dir = @__DIR__
-     println(pwd())	
-     #cd("../")
+src_dir = @__DIR__
+function gen_problem(case) 
+     println(src_dir)
      if(case == "Generator expansion")
 		cd(joinpath(src_dir, "..", "examples","Generator_expansion"))
 	    include("full_space_model.jl")
@@ -148,9 +146,6 @@ function gen_problem(case)
 		cd(src_dir)
 		return PAMSO_problem
 	end
-
-
-
 end
 
 
