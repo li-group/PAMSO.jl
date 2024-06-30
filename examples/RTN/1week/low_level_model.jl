@@ -5,7 +5,7 @@ function gen_lowlevel(high_level_des)
     horizon = days*24
     V_max = high_level_des["V_max"] 
 	X_max = high_level_des["X_max"] 
-    file = joinpath(root,"data.xlsx")
+    file = joinpath(pwd(),"data.xlsx")
     opt_val = 0
 	for i in 1:weeks
         task = DataFrame(XLSX.readtable(file,"Tasks"))
@@ -19,7 +19,7 @@ function gen_lowlevel(high_level_des)
         horizon = days*24
         data = create_model_data(task, resources, network, supply, horizon,days,num_day_week)
         RTN_model= RTN(data)
-        opt = solve_model_full(RTN_model,V_max,X_max)
+        opt = solve_model_full(RTN_model,0,V_max,X_max)
         #opt = solve_model_full(RTN_model)
         opt_val = opt_val+opt
     end

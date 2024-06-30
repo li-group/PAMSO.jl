@@ -6,7 +6,7 @@ struct RTN
     data::Dict 
 end
 
-function solve_model_full(rtn::RTN,Vmaxval = Nothing,Xmaxval = Nothing)
+function solve_model_full(rtn::RTN,,ret_mod = 0,Vmaxval = Nothing,Xmaxval = Nothing)
     m = direct_model(Gurobi.Optimizer())
     column(x::VariableRef) = Gurobi.c_column(backend(owner_model(x)), index(x))
     
@@ -201,5 +201,8 @@ end
     println(Xmaxval)
     println(mu)
     println(nu)
+    if(ret_mod==1)
+        return m
+    end
     return objective_value(m)
 end

@@ -1,5 +1,4 @@
 #include("data_utils.jl")
-root = pwd()
 include(joinpath(root,"data_utils.jl"))
 include(joinpath(root,"rtn_model_full.jl"))
 include(joinpath(root,"rtn_agg.jl"))
@@ -7,14 +6,13 @@ include(joinpath(root,"rtn_agg.jl"))
 import XLSX
 import CSV
 using DataFrames
-using Dates
 using JuMP
 using Gurobi
 #RTN_model= RTN(data, "baron")
 #opt = RTN_model.solve_model()
 
 function gen_highlevel(p_val)
-	file = joinpath(root,"data.xlsx")
+	file = joinpath(pwd(),"data.xlsx")
     #xf = XLSX.readxlsx(joinpath(root,"data", "case_7_daysn.xlsx"))
     task = DataFrame(XLSX.readtable(file,"Tasks"))
     resources = DataFrame(XLSX.readtable(file,"Resources"))
