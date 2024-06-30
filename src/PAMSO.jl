@@ -3,6 +3,7 @@ using NOMAD
 using JuMP
 using BayesOpt
 using Optim
+
 # Write your package code here.
 #module PAMSO
 
@@ -139,9 +140,10 @@ function gen_problem(case)
      println(src_dir)
      if(case == "Generator expansion")
 		cd(joinpath(src_dir, "..", "examples","Generator_expansion"))
-	    include("full_space_model.jl")
-		include("high_level_model.jl")
-		include("low_level_model.jl")
+		println(pwd())
+	    include(joinpath(pwd(),"full_space_model.jl"))
+		include(joinpath(pwd(),"high_level_model.jl"))
+		include(joinpath(pwd(),"low_level_model.jl"))
 		params = PAMSO_params([1.0,1.0,0.0],[0.0,0.0,0.0],[10.0,10.0,1000.0], ["R","R","R"])
 		PAMSO_problem = PAMSO_block(gen_highlevel, gen_lowlevel, fs_model, 3, params)
 		cd(src_dir)
