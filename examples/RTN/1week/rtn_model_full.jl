@@ -164,7 +164,7 @@ end
     end
 
     # Defining objective
-    @objective(m, Min, sum(N[i, t] for i in I for t in T1) +
+    @objective(m, Min, sum(N[i, t]*N_cost[i] for i in I for t in T1) +
               sum(pi[r, t] * R_cost[r] for r in R for t in T1) +
               2 * sum(sl[r, t] * R_cost[r] for r in Rp for t in Td) +
               sum(Vmax_pow[r] * R_cost[r]  for r in Task_resources)+
