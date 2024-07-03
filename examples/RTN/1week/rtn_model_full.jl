@@ -171,7 +171,7 @@ end
               sum(Xmax_pow[r] * X_cost[r] for r in R_mat))
      #@objective(m, Max, sum(N[i, t] for i in I for t in T1))
 
-    optimize!(m)
+   
     
 
     
