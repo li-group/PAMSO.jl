@@ -25,4 +25,4 @@ num_day_week = 7
 horizon = days*24
 data = create_model_data(task, resources, network, supply, horizon,days,num_day_week)
 RTN_model= RTN(data)
-fs_model = solve_model_full(RTN_model,ret_mod = 1)
+fs_model = solve_model_full(RTN_model,1)
