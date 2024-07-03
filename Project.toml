@@ -1,5 +1,5 @@
 name = "PAMSO"
-uuid = "6effc266-c12d-4d23-b7c7-d1aab909dd98"
+uuid = "911b5b2f-e463-49ee-8d8c-768c7082167c"
 authors = ["Asha Ramanujam"]
 version = "1.0.0-DEV"
 
@@ -8,6 +8,7 @@ BayesOpt = "8b8fa57b-2f72-5ccd-8d28-750de228707b"
 CSV = "336ed68f-0bac-5ca0-87d4-7b16caf5d00b"
 Clustering = "aaaa29a8-35af-508c-8bc3-b662a17a0fe5"
 DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
+DataStructures = "864edb3b-99cc-5e75-8d2d-829cb0a9cfe8"
 Dates = "ade2ca70-3891-5945-98fb-dc099432e06a"
 Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
 FileIO = "5789e2e9-d7fb-5bc7-8068-2c6fae9b9549"
@@ -17,6 +18,7 @@ NOMAD = "02130f1c-4665-5b79-af82-ff1385104aa0"
 Optim = "429524aa-4258-5aef-a3af-852621145aeb"
 Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
 Statistics = "10745b16-79ce-11e8-11f9-7d13ad32a3b2"
+StatsBase = "2913bbd2-ae8a-5f71-8c99-4fb6c76f3a91"
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 XLSX = "fdbf4ff8-1666-58a4-91e7-1b58723a45e0"
 
