@@ -211,7 +211,7 @@ function gen_problem(case)
 	    include(joinpath(pwd(),"full_space_model.jl"))
 		include(joinpath(pwd(),"high_level_model.jl"))
 		include(joinpath(pwd(),"low_level_model.jl"))
-		params = PAMSO_params([1000;1.0],[0.0,0.0],[1000.0,1.0], ["I","R"])
+		params = PAMSO_params([1000;1.0],[0.0,0.0],[1000,1.0], ["I","R"])
 		PAMSO_problem = PAMSO_block(gen_highlevel, gen_lowlevel, fs_model, 2, params)
 		cd(src_dir)
 		return PAMSO_problem
