@@ -218,7 +218,7 @@ function gen_problem(case)
 	else
 		println("Wrong Case")
 	end
-	end
+	
 end
 
 
