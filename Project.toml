@@ -1,5 +1,5 @@
 name = "PAMSO"
-uuid = "911b5b2f-e463-49ee-8d8c-768c7082167c"
+uuid = "d0db1ec3-365e-4702-8e92-e733a3fff79e"
 authors = ["Asha Ramanujam"]
 version = "1.0.0-DEV"
 
@@ -17,6 +17,7 @@ JuMP = "4076af6c-e467-56ae-b986-b466b2749572"
 NOMAD = "02130f1c-4665-5b79-af82-ff1385104aa0"
 Optim = "429524aa-4258-5aef-a3af-852621145aeb"
 Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
+Serialization = "9e88b42a-f829-5b0c-bbe9-9e923198166b"
 Statistics = "10745b16-79ce-11e8-11f9-7d13ad32a3b2"
 StatsBase = "2913bbd2-ae8a-5f71-8c99-4fb6c76f3a91"
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
