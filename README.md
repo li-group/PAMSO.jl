@@ -26,7 +26,7 @@ As an example, we try to solve a generator planning problem. The problem is base
 1. A high-level model and low-level model are formulated based on the full-space model and coded into separate files as functions. The high-level model is an aggregated version of model where we aggregate the system for entire time period. The low-level model involves fixing the capacity of the generators in the full-space model. The high-level model is parametrized based on the physics of the model. The high-level model is coded as a function which takes the tunable parameters as a parameters to the function and gives the high-level decisions (like the capacity of the gnerators) as an output. In this example, we store the high-level decision as a dictionary. The low-level model takes in the high-level decisions as parameters and outputs the objective function
 2. We create a block of parameters and intitialize it with the initial set of parameters (init), lower bounds of parameters (lb),upper bounds of parameters ub and input_types (can be integer ("I") or real ("R")). In this example, the code is as follows:
 ```julia
-  PAMSO_toy_params = PAMSO.params([1.0,1.0,0.0],[0.0,0.0,0.0],[10.0,10.0,1000.0], ["R","R","R"])
+  PAMSO_toy_params = PAMSO.PAMSO_params([1.0,1.0,0.0],[0.0,0.0,0.0],[10.0,10.0,1000.0], ["R","R","R"])
 ```
 4. We create a PAMSO_block and initialize it with the function to generate the high-level model (gen_highlevel),the function to generate the low-level model (gen_lowlevel), the full-space model, number of parameters (dimmensions) and the parameters block. The code is as follows:
 ```julia
