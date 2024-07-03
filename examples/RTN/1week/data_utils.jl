@@ -17,7 +17,7 @@ function create_model_data(task, resources, network, sd_set, H, days, num_day_we
     X0 = Dict()   # Initial resource level
     Xmin = Dict() # Minimum resource level
     Xmax = Dict() # Maximum resource level
-
+    N_cost = Dict()
     idx = []
     idx_reac = []
     mu = Dict()
@@ -76,6 +76,7 @@ function create_model_data(task, resources, network, sd_set, H, days, num_day_we
         #println(task[i,T[2]])
         #println(task[i,T[1]])
         tau[task[i,T[1]]] = task[i,T[2]]
+        N_cost[task[i,T[1]]] = task[i,T[4]]
         if tau[task[i,T[1]]] > max_tau
             max_tau = tau[task[i,T[1]]]
         end
@@ -187,6 +188,7 @@ function create_model_data(task, resources, network, sd_set, H, days, num_day_we
         "nu_reac" => nu_reac,
         "idx_reac" => idx_reac,
         "num_day_week" => num_day_week,
+        "N_cost" => N_cost,
     )
 
     return data
