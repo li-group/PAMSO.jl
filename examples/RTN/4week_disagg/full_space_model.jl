@@ -1,3 +1,4 @@
+root = pwd()
 include(joinpath(root,"data_utils.jl"))
 include(joinpath(root,"rtn_model_full.jl"))
 include(joinpath(root,"rtn_agg.jl"))
