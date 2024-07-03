@@ -1,5 +1,7 @@
-include("data_utils.jl")
-include("rtn_model_gp4.jl")
+include(joinpath(root,"data_utils.jl"))
+include(joinpath(root,"rtn_model_full.jl"))
+include(joinpath(root,"rtn_agg.jl"))
+
 
 import XLSX
 import CSV
