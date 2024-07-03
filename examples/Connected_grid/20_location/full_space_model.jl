@@ -56,7 +56,6 @@ df_loc = DataFrame(CSV.File(df_loc_path))
 
 	m = modgen(n_loc_og,Location,Location_tr,trline,Param,plan_max,n_lij,maximum(values(n_bun)))
 	set_optimizer_attribute(m,"PreDual",2)
-	set_optimizer_attribute(m,"LogFile",joinpath(root,"./"*string(case)*file))
 	set_optimizer_attribute(m,"Method",2)
 	set_optimizer_attribute(m,"DegenMoves",0)
 	#set_optimizer_attribute(m,"NonConvex",2)
