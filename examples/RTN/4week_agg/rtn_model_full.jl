@@ -47,6 +47,8 @@ function solve_model_full(rtn::RTN,ret_mod = 0,Vmaxval = Nothing,Xmaxval = Nothi
         idx_reac = data["idx_reac"]
         num_day_week = data["num_day_week"]
         weeks = Int(days/num_day_week)
+        N_cost = data["N_cost"]
+
 
     T = collect(0:horizon)
     T1 = collect(1:horizon) 
