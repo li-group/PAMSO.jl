@@ -215,9 +215,9 @@ function gen_problem(case)
 		PAMSO_problem = PAMSO_block(gen_highlevel, gen_lowlevel, fs_model, 2, params)
 		cd(src_dir)
 		return PAMSO_problem
-	end
 	else
 		println("Wrong Case")
+	end
 	end
 end
 
