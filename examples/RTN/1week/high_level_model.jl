@@ -10,9 +10,9 @@ using JuMP
 using Gurobi
 #RTN_model= RTN(data, "baron")
 #opt = RTN_model.solve_model()
-
+file = joinpath(pwd(),"data.xlsx")
 function gen_highlevel(p_val)
-	file = joinpath(pwd(),"data.xlsx")
+	
     #xf = XLSX.readxlsx(joinpath(root,"data", "case_7_daysn.xlsx"))
     task = DataFrame(XLSX.readtable(file,"Tasks"))
     resources = DataFrame(XLSX.readtable(file,"Resources"))
