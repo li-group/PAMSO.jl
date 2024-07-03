@@ -216,7 +216,7 @@ end
     #@constraint(m,sl.==0)
 
     obj = (
-        sum(N[i, t] for i in I for t in T1)*param_n +
+        sum(N[i, t]*N_cost[i] for i in I for t in T1)*param_n +
         sum(pi[r, t] * R_cost[r] for r in R for t in T1) +
         param_b1 * sum(sl[r, t] * R_cost[r] for r in Rp for t in Td) +
         sum(Vmax_pow[r] * R_cost[r] * param_dof* weeks  for r in Feed_vessels) +
