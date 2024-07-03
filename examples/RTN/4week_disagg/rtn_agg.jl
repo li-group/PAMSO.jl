@@ -17,12 +17,12 @@ function solve_model_agg(RTN_agg, x)
     Product_vessels = []
     Intermediate_vessels = []
    
-   param_n = x[1]
+  param_n = x[6]
     param_dof = x[2]
     param_dop = x[3]
     param_doi = x[4]
-    param_b1 = x[5]
-    param_x = x[6]
+    param_b1 = x[1]
+    param_x = x[5]
     #m = Model(with_optimizer(Gurobi.Optimizer, TimeLimit=10, Threads=8, MIPGap=0.005))
 
     column(x::VariableRef) = Gurobi.c_column(backend(owner_model(x)), index(x))
