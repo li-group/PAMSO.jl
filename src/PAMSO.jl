@@ -206,7 +206,7 @@ function gen_problem(case)
 		PAMSO_problem = PAMSO_block(gen_highlevel, gen_lowlevel, fs_model, 2, params)
 		cd(src_dir)
 		return PAMSO_problem
-	elseif(case == "Isolated microgrid: 29 locations")
+	elseif(case == "Isolated microgrid: 20 locations")
 		cd(joinpath(src_dir, "..", "examples","Isolated_grid"))
 	    include(joinpath(pwd(),"full_space_model.jl"))
 		include(joinpath(pwd(),"high_level_model.jl"))
