@@ -61,6 +61,8 @@ function solve_model_agg(RTN_agg, x)
         idx_reac = data["idx_reac"]
         num_day_week = data["num_day_week"]
         weeks = Int(days/num_day_week)
+        N_cost = data["N_cost"]
+
 
         T = collect(0:days)
         T1 = collect(1:days) 
