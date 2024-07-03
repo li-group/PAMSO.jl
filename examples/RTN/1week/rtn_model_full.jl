@@ -173,25 +173,16 @@ end
 
     optimize!(m)
     
-    #=compute_conflict!(m)
-            list_of_conflicting_constraints = ConstraintRef[]
-            for (F, S) in list_of_constraint_types(m)
-           for con in all_constraints(m, F, S)
-               if MOI.get(m, MOI.ConstraintConflictStatus(),con) == MOI.IN_CONFLICT
-                   push!(list_of_conflicting_constraints, con)
-               end
-           end
-       end
-       open("check.txt","a") do io
-       for i in list_of_conflicting_constraints
-       println(io,i)
-   end
-   end=#
-    # Printing the solution
-    
+
     
 
-    println(sum(value.(pi)))
+   
+   if(ret_mod==1)
+        return m
+    end
+    
+    optimize!(m)
+   println(sum(value.(pi)))
     println(R_type)
     println(X0)
     println("Objective Value: ", objective_value(m))
@@ -201,8 +192,5 @@ end
     println(Xmaxval)
     println(mu)
     println(nu)
-    if(ret_mod==1)
-        return m
-    end
     return objective_value(m)
 end
