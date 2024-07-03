@@ -17,7 +17,7 @@ function solve_model_agg(RTN_agg, x)
     Product_vessels = []
     Intermediate_vessels = []
    
-  param_n = x[6]
+    param_n = x[6]
     param_dof = x[2]
     param_dop = x[3]
     param_doi = x[4]
@@ -28,7 +28,7 @@ function solve_model_agg(RTN_agg, x)
     column(x::VariableRef) = Gurobi.c_column(backend(owner_model(x)), index(x))
     m = direct_model(Gurobi.Optimizer())
     #set_optimizer_attribute(m,"LogFile","1week_algo_2.txt")
-    set_optimizer_attribute(m,"TimeLimit",200)
+    set_optimizer_attribute(m,"TimeLimit",150)
     #set_optimizer_attribute(m,"FuncPieceError",0.05)
     set_optimizer_attribute(m,"PreSolve",2)
     set_optimizer_attribute(m,"Threads",8)
@@ -216,7 +216,7 @@ end
     #@constraint(m,sl.==0)
 
     obj = (
-        sum(N[i, t] for i in I for t in T1)*param_n +
+        sum(N[i, t]*N_cost[i] for i in I for t in T1)*param_n +
         sum(pi[r, t] * R_cost[r] for r in R for t in T1) +
         param_b1 * sum(sl[r, t] * R_cost[r] for r in Rp for t in Td) +
         sum(Vmax_pow[r] * R_cost[r] * param_dof* weeks  for r in Feed_vessels) +
