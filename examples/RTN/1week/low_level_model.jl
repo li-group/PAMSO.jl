@@ -1,3 +1,4 @@
+file = joinpath(pwd(),"data.xlsx")
 function gen_lowlevel(high_level_des)
 	weeks = 1
 	days = 7
@@ -5,7 +6,7 @@ function gen_lowlevel(high_level_des)
     horizon = days*24
     V_max = high_level_des["V_max"] 
 	X_max = high_level_des["X_max"] 
-    file = joinpath(pwd(),"data.xlsx")
+    
     opt_val = 0
 	for i in 1:weeks
         task = DataFrame(XLSX.readtable(file,"Tasks"))
