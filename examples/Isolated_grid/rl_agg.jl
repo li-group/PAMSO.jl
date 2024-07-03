@@ -195,7 +195,7 @@ function modgen0(n_loc,Location,Location_tr,trline,Param,n_lij,p_val)
 	    @constraint(m,tr3[(p,v) in trline,t=1:n_tm],-0.1*Fl_max[(p,v)]*n[(p,v)]*24*d_m[t]*per_val.<=0.1*p_flow[(p,v),t]*S_base)
 	    @constraint(m,tr4[(p,v) in trline,t=1:n_tm],0.1*p_flow[(p,v),t]*S_base.<=0.1*Fl_max[(p,v)]*n[(p,v)]*24*d_m[t]*per_val)
 
-
+		@constraint(m,tr8a[(p,v) in trline],n[(p,v)]==n[(v,p)])
 
         @constraint(m,tr18[(p,v) in trline,t=1:n_tm],p_flow[(p,v),t]+p_flow[(v,p),t]>=0)
       
