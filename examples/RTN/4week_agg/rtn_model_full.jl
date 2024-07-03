@@ -164,34 +164,20 @@ end
     end
 
     # Defining objective
-    @objective(m, Min, sum(N[i, t] for i in I for t in T1) +
+    @objective(m, Min, sum(N[i, t]*N_cost[i] for i in I for t in T1) +
               sum(pi[r, t] * R_cost[r] for r in R for t in T1) +
               2 * sum(sl[r, t] * R_cost[r] for r in Rp for t in Td) +
               sum(Vmax_pow[r] * R_cost[r]  for r in Task_resources)+
               sum(Xmax_pow[r] * X_cost[r] for r in R_mat))
      #@objective(m, Max, sum(N[i, t] for i in I for t in T1))
 
-     
-    #=compute_conflict!(m)
-            list_of_conflicting_constraints = ConstraintRef[]
-            for (F, S) in list_of_constraint_types(m)
-           for con in all_constraints(m, F, S)
-               if MOI.get(m, MOI.ConstraintConflictStatus(),con) == MOI.IN_CONFLICT
-                   push!(list_of_conflicting_constraints, con)
-               end
-           end
-       end
-       open("check.txt","a") do io
-       for i in list_of_conflicting_constraints
-       println(io,i)
-   end
-   end=#
-    # Printing the solution
-    
+   
     
 
     
-    if(ret_mod==1)
+
+   
+   if(ret_mod==1)
         return m
     end
     
