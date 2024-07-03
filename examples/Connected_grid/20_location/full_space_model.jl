@@ -6,10 +6,7 @@ using Clustering
 using FileIO
 using JuMP
 import Gurobi
-using Optim
 import XLSX
- import Distributions: Uniform
- using Serialization
 root = pwd()
 
 
