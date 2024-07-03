@@ -72,3 +72,5 @@ function gen_highlevel(p_val)
 	
 	return high_level_des
 end
+
+cd(root)
