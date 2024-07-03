@@ -17,7 +17,7 @@ function gen_lowlevel(high_level_des)
         push!(supply,sp)
         data = create_model_data(task, resources, network, supply, horizon,days,num_day_week)
         RTN_model= RTN(data)
-        opt = solve_model_full(RTN_model,V_max,X_max)
+        opt = solve_model_full(RTN_model,0,V_max,X_max)
         #opt = solve_model_full(RTN_model)
         opt_val = opt_val+opt
     end
