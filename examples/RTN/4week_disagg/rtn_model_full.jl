@@ -6,7 +6,7 @@ struct RTN
     data::Dict 
 end
 
-function solve_model_full(rtn::RTN,,ret_mod = 0,Vmaxval = Nothing,Xmaxval = Nothing)
+function solve_model_full(rtn::RTN,ret_mod = 0,Vmaxval = Nothing,Xmaxval = Nothing)
     m = direct_model(Gurobi.Optimizer())
     column(x::VariableRef) = Gurobi.c_column(backend(owner_model(x)), index(x))
     
@@ -171,8 +171,7 @@ end
               sum(Xmax_pow[r] * X_cost[r] for r in R_mat))
      #@objective(m, Max, sum(N[i, t] for i in I for t in T1))
 
-    optimize!(m)
-    
+     
     #=compute_conflict!(m)
             list_of_conflicting_constraints = ConstraintRef[]
             for (F, S) in list_of_constraint_types(m)
@@ -191,7 +190,13 @@ end
     
     
 
-    println(sum(value.(pi)))
+    
+    if(ret_mod==1)
+        return m
+    end
+    
+    optimize!(m)
+   println(sum(value.(pi)))
     println(R_type)
     println(X0)
     println("Objective Value: ", objective_value(m))
@@ -201,8 +206,5 @@ end
     println(Xmaxval)
     println(mu)
     println(nu)
-    if(ret_mod==1)
-        return m
-    end
     return objective_value(m)
 end
