@@ -6,10 +6,11 @@ Pkg.instantiate()
 using Documenter
 using PAMSO
 
+
 makedocs(
     sitename = "PAMSO: Parametric Autotuning Multi-time Scale Optimization Algorithm",
     modules = [PAMSO],
-    format = Documenter.HTML(prettyurls = true),
+    format = Documenter.HTML(),
     pages = ["Home" => "index.md",
            "PAMSO Elements" => "func_struct.md",
            "Cases" => "case.md"

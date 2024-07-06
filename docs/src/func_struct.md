@@ -44,3 +44,6 @@ We have the following functions in the PAMSO package based on the PAMSO block.
 | set_fsmodel | Modify the full-space model                      | PAMSO problem block, optimization model                                                          |
 | gen_problem | Generate a PAMSO instance in the example folders | Name of the instance                                                                             |
 | run         | Run the PAMSO algorithm on a PAMSO problem block | PAMSO problem block,DFO Solver ("MADS","Bayesopt","PSO"), maximum number of function evaluations |
+
+
+[Back to Home](index.md)

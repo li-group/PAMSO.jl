@@ -19,3 +19,7 @@ The list of cases is in the next section
 | Connected microgrid: 20 locations | Integrated planning and scheduling for 20 location microgrid connected to external sources of power                                                          | 2                    |
 | Connected network: 20 locations   | Integrated planning and scheduling for 200 location network connected to external sources of power                                                           | 2                    |
 | Isolated microgrid: 20 locations  | Integrated planning and scheduling for 20 location isolated microgrid                                                                                        | 2                    |
+
+
+
+[Back to Home](index.md)
