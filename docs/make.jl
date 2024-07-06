@@ -1,3 +1,8 @@
+using Pkg
+Pkg.activate(".")
+Pkg.instantiate()
+
+
 using Documenter
 using PAMSO
 
@@ -6,7 +11,7 @@ makedocs(
     modules = [PAMSO],
     format = Documenter.HTML(prettyurls = true),
     pages = ["Home" => "index.md",
-           "Parameters" => "param.md",
+           "PAMSO Elements" => "func_struct.md",
            "Cases" => "case.md"
           ]
 )
