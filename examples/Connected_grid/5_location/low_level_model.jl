@@ -100,6 +100,7 @@ function gen_lowlevel(high_level_des)
 	end
 	end
 	optimize!(m)
+	println(value.(m[:x]))
 	a = objective_value(m)
 m = Nothing
 	return a
