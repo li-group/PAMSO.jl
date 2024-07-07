@@ -134,6 +134,7 @@ df_loc = DataFrame(CSV.File(df_loc_path))
 	end
 	end
 	optimize!(m)
+	println(value.(m[:x]))
 	a = objective_value(m)
 m = Nothing
 	return a
