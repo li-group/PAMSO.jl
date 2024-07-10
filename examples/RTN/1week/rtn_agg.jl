@@ -23,13 +23,12 @@ function solve_model_agg(RTN_agg, x)
     param_doi = x[4]
     param_b1 = x[1]
     param_x = x[5]
-    #m = Model(with_optimizer(Gurobi.Optimizer, TimeLimit=10, Threads=8, MIPGap=0.005))
-
+    
     column(x::VariableRef) = Gurobi.c_column(backend(owner_model(x)), index(x))
     m = direct_model(Gurobi.Optimizer())
-    #set_optimizer_attribute(m,"LogFile","1week_algo_2.txt")
+    
     set_optimizer_attribute(m,"TimeLimit",150)
-    #set_optimizer_attribute(m,"FuncPieceError",0.05)
+   
     set_optimizer_attribute(m,"PreSolve",2)
     set_optimizer_attribute(m,"Threads",8)
     set_optimizer_attribute(m,"MIPGap",0.03)
@@ -41,8 +40,6 @@ function solve_model_agg(RTN_agg, x)
         mu = data["mu"]
         nu = data["nu"]
         tau = data["tau"]
-        #Vmax = data["Vmax"]
-        #Vmin = data["Vmin"]
         X0 = data["X0"]
         Xmin = data["Xmin"]
         Xmax = data["Xmax"]
@@ -154,8 +151,7 @@ end
                     @constraint(m,pi[r, t] >= 0)
                 end
             elseif(R_type[r] == "Product")
-                #@constraint(m,pi[r, 0] == 0)
-                for t in T1
+                    for t in T1
                     @constraint(m,pi[r, t] <= 0)
                 end
                 for n in Td
@@ -169,8 +165,7 @@ end
                 end
             end 
     end
-        #print(tau)
-        #print(Ir)
+        
         for t in T1
             for r in R
                 if !(r in Task_resources)                
@@ -209,13 +204,13 @@ end
                 for i in unit_to_resource_mapping[u]
                     @constraint(m,Vmax[u] * N[i, t]*1.0 >= E[i, t])
                     @constraint(m,Vmax[u] * N[i, t] * 0.5 <= E[i, t])
-                    #@constraint(m, 0.0001 * N[i, t] * 0.5/24 <= Vmax[u])
+        
                 end
                 @constraint(m,sum(N[i, t]*tau[i] for i in unit_to_resource_mapping[u]) <= 24)
             end
         end
    
-    #@constraint(m,sl.==0)
+    
 
     obj = (
         sum(N[i, t]*N_cost[i] for i in I for t in T1)*param_n +
@@ -233,7 +228,7 @@ end
 
     optimize!(m)
 
-    #X_end = Dict(r => value.(X[r, 1]) for r in R)
+    
     V_max = Dict(r => value.(Vmax[r]) for r in Task_resources)
     Xmax_set = Dict(r => value.(Xmax_val[r]) for r in R_mat)
     println(value.(sl))
