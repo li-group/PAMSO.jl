@@ -152,7 +152,7 @@ function create_model_data(task, resources, network, sd_set, H, days, num_day_we
         sd = sd_set[i]
 
         for j in 1:length(Rp) * num_day_week
-            pi[(sd[j,1], sd[j,3]+num_day_week*(i-1))] = sd[j,2] 
+             pi[(sd[j,1], sd[j,3])] = sd[j,2] / weeks + pi[(sd[j,1], sd[j,3])] 
         end
     end
     
