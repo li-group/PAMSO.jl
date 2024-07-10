@@ -3,7 +3,7 @@ using StatsBase
 using XLSX
 using DataStructures
 
-function create_model_data(task, resources, network, sd_set, H, days, num_day_week, solver="glpk")
+function create_model_data(task, resources, network, sd_set, H, days, num_day_week)
     I = []
     R = []
     Rp = []
