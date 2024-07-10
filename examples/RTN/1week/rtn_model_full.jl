@@ -11,7 +11,7 @@ function solve_model_full(rtn::RTN,ret_mod = 0,Vmaxval = Nothing,Xmaxval = Nothi
     column(x::VariableRef) = Gurobi.c_column(backend(owner_model(x)), index(x))
     
     set_optimizer_attribute(m,"PreSolve",2)
-    set_optimizer_attribute(m,"TimeLimit",150)
+    
     set_optimizer_attribute(m,"Threads",8)
     set_optimizer_attribute(m,"MIPGap",0.02)
 
@@ -175,7 +175,7 @@ end
    if(ret_mod==1)
         return m
     end
-    
+    set_optimizer_attribute(m,"TimeLimit",150)
     optimize!(m)
    println(sum(value.(pi)))
     println(R_type)
