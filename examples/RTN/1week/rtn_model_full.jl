@@ -12,9 +12,6 @@ function solve_model_full(rtn::RTN,ret_mod = 0,Vmaxval = Nothing,Xmaxval = Nothi
     
     set_optimizer_attribute(m,"PreSolve",2)
     set_optimizer_attribute(m,"TimeLimit",150)
-    #set_optimizer_attribute(m,"LogFile","7day_full_1.txt")
-    #set_optimizer_attribute(m,"LogFile","1week_algo2.txt")
-    #set_optimizer_attribute(m,"LogFile","7day4week_full_4_exp6_1_algodis.txt")
     set_optimizer_attribute(m,"Threads",8)
     set_optimizer_attribute(m,"MIPGap",0.02)
 
@@ -27,8 +24,6 @@ function solve_model_full(rtn::RTN,ret_mod = 0,Vmaxval = Nothing,Xmaxval = Nothi
         mu = data["mu"]
         nu = data["nu"]
         tau = data["tau"]
-        #Vmax = data["Vmax"]
-        #Vmin = data["Vmin"]
         X0 = data["X0"]
         Xmin = data["Xmin"]
         Xmax = data["Xmax"]
@@ -79,9 +74,9 @@ end
 
     # Defining intermediate variables
     @variable(m, sl[r in Rp, n in Td] >= 0)
-    @variable(m, Vmax[r in Task_resources] >= 0)
+    @variable(m, 1000>=Vmax[r in Task_resources] >= 0)
     @variable(m, Vmax_pow[r in Task_resources] >= 0)
-    @variable(m,Xmax_val[r in R_mat]>=0)
+    @variable(m,100>=Xmax_val[r in R_mat]>=0)
     @variable(m,Xmax_pow[r in R_mat]>=0)
 
    
@@ -109,7 +104,7 @@ end
     println(length(keys(nu)))
     println(length(keys(mu)))
     # Defining constaints
-   # @constraint(m,sum(sl)<=sum(values(Dem))*0.6)
+  
    println(Dem)
     for r in R
         if R_type[r] == "Feed"
@@ -117,7 +112,6 @@ end
                 @constraint(m, pi[r, t] >= 0)
             end
         elseif R_type[r] == "Product"
-            #@constraint(m,pi[r,0]==0)
             for t in T1
                 @constraint(m, pi[r, t] <= 0)
             end
@@ -150,7 +144,7 @@ end
         for r in R_mat
             @constraint(m, X[r, t] <= Xmax_val[r])
             @constraint(m, Xmax_val[r] <= Xmax[r])
-            #@constraint(m, X[r, t] <= 100)
+            
         end
     end
 
@@ -159,7 +153,6 @@ end
             for i in unit_to_resource_mapping[u]
                 @constraint(m, Vmax[u] * N[i, t] >= E[i, t])
                 @constraint(m, Vmax[u] * N[i, t] * 0.5 <= E[i, t])
-                #@constraint(m, 0.0001 * N[i, t] * 0.5 <= Vmax[u])
             end
             @constraint(m, sum(N[i, t] for i in unit_to_resource_mapping[u]) <= 1)
         end
