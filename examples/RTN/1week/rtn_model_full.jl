@@ -101,11 +101,10 @@ end
         GRBaddgenconstrPow(backend(m), "pow", column(Xmax_val[r]), column(Xmax_pow[r]), 0.6, "")
     end
         end
-    println(length(keys(nu)))
-    println(length(keys(mu)))
+   
     # Defining constaints
   
-   println(Dem)
+   
     for r in R
         if R_type[r] == "Feed"
             for t in T1
@@ -124,7 +123,7 @@ end
             end
         end
     end
-    println(tau["CD"])
+    
     for t in T1
         for r in R
                 @constraint(m, X[r, t] == X[r, t - 1] + sum(mu[i, r, theta] * N[i, t - theta] + nu[i, r, theta] * E[i, t - theta] for i in Ir[r], theta in 0:max_tau if theta <= tau[i] && t-theta >=1)+pi[r,t])
