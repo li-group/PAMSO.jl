@@ -177,7 +177,7 @@ function modgen(n_loc,Location,Location_tr,trline,Param,plan_max,n_lij,n_bun_agg
         @constraint(m,tr16[(p,v) in trline,t=1:n_tm,k=1:n_k,h=1:n_s,l=1:n_lij],Cpv[(p,v),t,k,h]<=lo*V_flow[p,t,k,h]+up*V_flow[v,t,k,h]-lo*up)
         @constraint(m,tr17[(p,v) in trline,t=1:n_tm,k=1:n_k,h=1:n_s,l=1:n_lij],Cpv[(p,v),t,k,h]<=up*V_flow[p,t,k,h]+lo*V_flow[v,t,k,h]-lo*up)
         @constraint(m,tr18[(p,v) in trline,t=1:n_tm,k=1:n_k,h=1:n_s,l=1:n_lij],p_flow[(p,v),l,t,k,h]+p_flow[(v,p),l,t,k,h]>=0)
-        println(g)
+       
         @constraint(m,tr19[(p,v) in trline,t=1:n_tm,k=1:n_k,h=1:n_s,l=1:n_lij],0.1*p_flow[(p,v),l,t,k,h]-0.1*g[(p,v)]*(Cpp[p,t,k,h]-Cpv[(p,v),t,k,h])>=-0.1*M*(1-n[(p,v),l]))
         @constraint(m,tr22[(p,v) in trline,t=1:n_tm,k=1:n_k,h=1:n_s,l=1:n_lij],0.1*p_flow[(p,v),l,t,k,h]-0.1*g[(p,v)]*(Cpp[p,t,k,h]-Cpv[(p,v),t,k,h])<=0.1*M*(1-n[(p,v),l]))
 
