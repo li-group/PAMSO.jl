@@ -1,4 +1,9 @@
 module PAMSO
+
+using Logging
+
+# Set global logging level to Error to suppress warnings
+global_logger(ConsoleLogger(stderr, Logging.Error))
 using NOMAD
 using JuMP
 using BayesOpt
