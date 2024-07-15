@@ -43,7 +43,7 @@ function solve_model_full(rtn::RTN,ret_mod = 0,Vmaxval = Nothing,Xmaxval = Nothi
         num_day_week = data["num_day_week"]
         weeks = Int(days/num_day_week)
         N_cost = data["N_cost"]
-
+        pen = data["pen"]
 
     T = collect(0:horizon)
     T1 = collect(1:horizon) 
@@ -160,7 +160,7 @@ end
     # Defining objective
     @objective(m, Min, sum(N[i, t]*N_cost[i] for i in I for t in T1) +
               sum(pi[r, t] * R_cost[r] for r in R for t in T1) +
-              2 * sum(sl[r, t] * R_cost[r] for r in Rp for t in Td) +
+              pen * sum(sl[r, t] * R_cost[r] for r in Rp for t in Td) +
               sum(Vmax_pow[r] * R_cost[r]  for r in Task_resources)*weeks+
               sum(Xmax_pow[r] * X_cost[r] for r in R_mat)*weeks)
      
