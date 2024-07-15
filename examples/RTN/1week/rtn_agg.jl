@@ -51,6 +51,7 @@ function solve_model_agg(RTN_agg, x)
         R_type = data["R_type"]
         R_cost = data["R_cost"]
         X_cost = data["X_cost"]
+        pen = data["pen"]
         days = data["days"]
         Rp = data["Rp"]
         unit_to_resource_mapping = data["unit_to_resource_mapping"]
@@ -215,7 +216,7 @@ end
     obj = (
         sum(N[i, t]*N_cost[i] for i in I for t in T1)*param_n +
         sum(pi[r, t] * R_cost[r] for r in R for t in T1) +
-        param_b1 * sum(sl[r, t] * R_cost[r] for r in Rp for t in Td) +
+        param_b1*pen*sum(sl[r, t] * R_cost[r] for r in Rp for t in Td) +
         sum(Vmax_pow[r] * R_cost[r] * param_dof* weeks  for r in Feed_vessels) +
         sum(Vmax_pow[r] * R_cost[r] * param_dop* weeks  for r in Product_vessels) +
         sum(Vmax_pow[r] * R_cost[r] * param_doi* weeks for r in Intermediate_vessels) +
