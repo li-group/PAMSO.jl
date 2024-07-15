@@ -1,6 +1,6 @@
 # PAMSO
 
-This package provides code to implement Parametric Autotuning Multi-time Scale Optimization Algorithm (PAMSO), an algorithm to solve multi-time scale optimization models. The algorithm has been published in the paper ...
+This package provides code to implement Parametric Autotuning Multi-time Scale Optimization Algorithm (PAMSO), an algorithm to solve multi-time scale optimization models.
 
 ## Table of Contents
 1. [Overview](#overview)
