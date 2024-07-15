@@ -13,7 +13,7 @@ function solve_model_full(rtn::RTN,ret_mod = 0,Vmaxval = Nothing,Xmaxval = Nothi
     set_optimizer_attribute(m,"PreSolve",2)
     
     set_optimizer_attribute(m,"Threads",8)
-    set_optimizer_attribute(m,"MIPGap",0.02)
+    set_optimizer_attribute(m,"MIPGap",0.03)
 
     # Defining sets and parameters
     
