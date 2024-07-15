@@ -182,6 +182,7 @@ function create_model_data(task, resources, network, sd_set, H, days, num_day_we
         "idx_reac" => idx_reac,
         "num_day_week" => num_day_week,
         "N_cost" => N_cost,
+        "pen"=>2.2,
     )
 
     return data
