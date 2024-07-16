@@ -4,8 +4,9 @@ using Statistics
 using Clustering
 using FileIO
 using JuMP
+Example_folder = "Example_1"
 root = pwd()
-#cd("../")
+cd("../")
 rootn = pwd()
 plant = ["Plant"]
 powergen = ["Solar panel","Wind Turbine"]
@@ -59,10 +60,12 @@ n_s = 24
 n_c1 = 6
 n_j = 3
 
-sl_fac = 2
+sl_fac = 10
 elec_fac = 1
 N = 1
 
+#max_wt = 150
+#max_sp = 15
 max_wt = 1000
 max_sp = 1000
 sp_prfac = 1.5
@@ -71,38 +74,24 @@ max_sp_pl = 500 #Ratio of maximum number of solar panels to plants in a location
 max_wt_pl = 500 #Ratio of maximum number of solar panels to plants in a location
 max_pl = 100 #maximum number of plants in a location in the final configuration
 ir = 0.03
-max_sp_pl = 500 #Ratio of maximum number of solar panels to plants in a location
-max_wt_pl = 500 #Ratio of maximum number of solar panels to plants in a location
-max_ratio = Dict() #Ratio of maximum number of component to maximum number of a specific plant for which max_pl is defined. If not there give a very large number
-max_ratio["Solar panel"] = 500
-max_ratio["Wind Turbine"] = 500
-max_ratio["Plant"] = 1
-prfac = Dict()
-prfac["Solar panel"] = 1
-prfac["Wind Turbine"] = 3
-max_pl = 100 #maximum number of a specific plants in a location in the final configuration based on which max_ratio is defined
-max_full = Dict() #Maximum number of component in total configuration. If not there, give a very large number
-max_full["Plant"] = 1000
-max_full["Solar panel"] = 15
-max_full["Wind Turbine"] = 150
-ir = 0.03
 mw = Dict()
 mw1 =  [71,2,32,58,40,18]
 for i = 1:n_c1
     mw[(chemical[i],)] = mw1[i]
 end
-df_loc_path = joinpath(rootn,"data","Location20.csv")
-files_plant = [joinpath(rootn,"data","plant.csv")]
-files_power = [joinpath(rootn,"data","powergen.csv")]
-files_l = [joinpath(rootn,"data","transmission.csv")]
-files_storage = [joinpath(rootn,"data","storage.csv")]
-df_parampath = joinpath(rootn,"data","datahalf.csv")
-solar_folder = joinpath(rootn,"data","solar100output")
-wind_folder = joinpath(rootn,"data","wind100output")
+df_loc_path = joinpath(rootn,"Examples",Example_folder,"Location20_1.csv")
+files_plant = [joinpath(rootn,"Examples",Example_folder,"plant.csv")]
+files_power = [joinpath(rootn,"Examples",Example_folder,"powergen.csv")]
+files_storage = [joinpath(rootn,"Examples",Example_folder,"storage.csv")]
+files_l = [joinpath(rootn,"Examples",Example_folder,"transmission.csv")]
+df_parampath = joinpath(rootn,"Examples",Example_folder,"datahalf.csv")
+solar_folder = joinpath(rootn,"Examples",Example_folder,"solar100output")
+wind_folder = joinpath(rootn,"Examples",Example_folder,"wind100output")
 years = [2011,2012,2013]
 infl = [(2.07/100+1)*(1.46/100+1),(1.46/100+1),1]*(1+24.10/100)#Add values for all years in between first and last year
-Dem = DataFrame(CSV.File(joinpath(rootn,"data","Demand.csv")))
+Dem = DataFrame(CSV.File(joinpath(rootn,"Examples",Example_folder,"Demand25.csv")))
 D= Dict()
+#Dem_fac = 2 #Old
 Dem_fac = 1
 for i in 1:nrow(Dem)
    D[(Dem[i,:Chemical],Dem[i,:Consumer],Dem[i,:Month])] = Dem[i,:Demand]*Dem_fac
@@ -110,9 +99,7 @@ end
 
 
 
-include(joinpath(rootn,"data","kmeansalg.jl"))
-clus = FileIO.load(joinpath(rootn,"data","kmeanval20.jld2"),"clus")
-ns = FileIO.load(joinpath(rootn,"data","kmeanave20.jld2"),"ns")
+include(joinpath(rootn,"src","kmeansalg.jl"))
 w = Dict()
 for i = 1:n_tm
     ck = clus[i]
