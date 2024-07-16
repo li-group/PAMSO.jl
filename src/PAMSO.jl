@@ -93,7 +93,6 @@ function run(PAMSO_block,algo,func_eval)
 			config.sc_type = SC_MAP
 			config.n_iterations = func_eval-10
 			config.force_jump = 10
-			#config.n_init_samples = [0.0,0.0,0.0,0.0,1.0,0.0]
 			lowerbound = PAMSO_block.param.lb; upperbound = PAMSO_block.param.ub
 			optimizer, optimum = bayes_optimization(PAMSO_block.MBBF, lowerbound, upperbound, config)
 			PAMSO_block.Param_best = optimizer
