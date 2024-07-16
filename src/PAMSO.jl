@@ -67,7 +67,7 @@ function run(PAMSO_block,algo,func_eval)
 
 		function bb(x)
 		  f =  PAMSO_block.MBBF(x)
-		 # c = 1 - x[1]
+		
 		  success = true
 		  count_eval = true
 		  bb_outputs = [f]
@@ -80,7 +80,7 @@ function run(PAMSO_block,algo,func_eval)
 		p.options.sgtelib_model_max_eval = func_eval
 		p.options.max_bb_eval = func_eval
 		p.options.display_stats = ["BBE","BBO","ITER_NUM","OBJ","SOL","TIME","TOTAL_SGTE"]
-		#p.BBInputTypes = ["I","I","R"]
+		
 		result = solve(p, PAMSO_block.param.init)
 		PAMSO_block.Param_best = result.x_best_feas
 	elseif(algo=="Bayesopt")
