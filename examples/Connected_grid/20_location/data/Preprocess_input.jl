@@ -56,7 +56,6 @@ n_tm = 12
 n_k = n_rep
 n_s = 24
 n_c1 = 6
-n_j = 3
 
 sl_fac = 2
 elec_fac = 1
