@@ -192,7 +192,7 @@ function gen_problem(case)
 		PAMSO_problem = PAMSO_block(gen_highlevel, gen_lowlevel, fs_model, 2, params)
 		cd(src_dir)
 		return PAMSO_problem
-	elseif(case == "Connected microgrid: 20 locations")
+	elseif(case == "Connected network: 20 locations")
 		cd(joinpath(src_dir, "..", "examples","Connected_grid","20_location"))
 	    include(joinpath(pwd(),"full_space_model.jl"))
 		include(joinpath(pwd(),"high_level_model.jl"))
