@@ -78,19 +78,18 @@ mw1 =  [71,2,32,58,40,18]
 for i = 1:n_c1
     mw[(chemical[i],)] = mw1[i]
 end
-df_loc_path = joinpath(rootn,"Examples",Example_folder,"Location20_1.csv")
-files_plant = [joinpath(rootn,"Examples",Example_folder,"plant.csv")]
-files_power = [joinpath(rootn,"Examples",Example_folder,"powergen.csv")]
-files_storage = [joinpath(rootn,"Examples",Example_folder,"storage.csv")]
-files_l = [joinpath(rootn,"Examples",Example_folder,"transmission.csv")]
-df_parampath = joinpath(rootn,"Examples",Example_folder,"datahalf.csv")
-solar_folder = joinpath(rootn,"Examples",Example_folder,"solar100output")
-wind_folder = joinpath(rootn,"Examples",Example_folder,"wind100output")
+df_loc_path = joinpath(rootn,"data","Location20.csv")
+files_plant = [joinpath(rootn,"data","plant.csv")]
+files_power = [joinpath(rootn,"data","powergen.csv")]
+files_l = [joinpath(rootn,"data","transmission.csv")]
+files_storage = [joinpath(rootn,"data","storage.csv")]
+df_parampath = joinpath(rootn,"data","datahalf.csv")
+solar_folder = joinpath(rootn,"data","solar100output")
+wind_folder = joinpath(rootn,"data","wind100output")
 years = [2011,2012,2013]
 infl = [(2.07/100+1)*(1.46/100+1),(1.46/100+1),1]*(1+24.10/100)#Add values for all years in between first and last year
-Dem = DataFrame(CSV.File(joinpath(rootn,"Examples",Example_folder,"Demand25.csv")))
+Dem = DataFrame(CSV.File(joinpath(rootn,"data","Demand.csv")))
 D= Dict()
-#Dem_fac = 2 #Old
 Dem_fac = 1
 for i in 1:nrow(Dem)
    D[(Dem[i,:Chemical],Dem[i,:Consumer],Dem[i,:Month])] = Dem[i,:Demand]*Dem_fac
@@ -98,7 +97,9 @@ end
 
 
 
-include(joinpath(rootn,"src","kmeansalg.jl"))
+include(joinpath(rootn,"data","kmeansalg.jl"))
+clus = FileIO.load(joinpath(rootn,"data","kmeanval20.jld2"),"clus")
+ns = FileIO.load(joinpath(rootn,"data","kmeanave20.jld2"),"ns")
 w = Dict()
 for i = 1:n_tm
     ck = clus[i]
