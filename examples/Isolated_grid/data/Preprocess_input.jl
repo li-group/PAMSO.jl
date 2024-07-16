@@ -4,9 +4,8 @@ using Statistics
 using Clustering
 using FileIO
 using JuMP
-Example_folder = "Example_1"
 root = pwd()
-cd("../")
+#cd("../")
 rootn = pwd()
 plant = ["Plant"]
 powergen = ["Solar panel","Wind Turbine"]
