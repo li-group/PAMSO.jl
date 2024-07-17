@@ -24,7 +24,7 @@ export set_fsmodel
 export set_lb
 export set_ube
 
-struct PAMSO_params
+mutable struct PAMSO_params
 	init::Vector
 	lb::Vector
 	ub::Vector
