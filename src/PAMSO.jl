@@ -114,19 +114,19 @@ end
 
 	
 function set_initparams(PAMSO_block,init)
-	PAMSO_block.params.init = init
+	PAMSO_block.param.init = init
 end
 
 function set_lb(PAMSO_block,lb)
-	PAMSO_block.params.lb = lb
+	PAMSO_block.param.lb = lb
 end
 
 function set_ub(PAMSO_block,ub)
-	PAMSO_block.params.ub = ub
+	PAMSO_block.param.ub = ub
 end
 
 function set_inputtype(PAMSO_block,input_types)
-	PAMSO_block.params.input_types = input_types
+	PAMSO_block.param.input_types = input_types
 end
 
 function set_hlmodel(PAMSO_block,high_level_model)
