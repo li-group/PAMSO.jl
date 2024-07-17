@@ -32,7 +32,7 @@ As an example, we try to solve a generator planning problem. The problem is base
 ```julia
   PAMSO_toy = PAMSO.PAMSO_block(gen_highlevel, gen_lowlevel, fs_model, 3, params)
 ```
-3. We then run one of the DFO agorithms ("MADS","Bayesopt" or "PSO") on the associated MBBF for a given number of function evaluations like the following code: 
+3. We then run one of the DFO agorithms ("MADS","Bayesopt" or "PSO") on the associated MBBF for a given number of function evaluations (approximate) like the following code: 
 ```julia
   PAMSO.run(PAMSO_toy,"MADS",300)
 ```
