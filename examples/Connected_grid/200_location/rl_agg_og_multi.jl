@@ -51,9 +51,9 @@ function modgen0(n_loc,Location_u,Location,Location_tr,trline,Param,n_lij,p_val,
 	    x = m[:x]
 	    nt = m[:nt]
 	    
-	  	@constraint(m,xm[loc in Location],sum(x["Plant",loc]).<=plan_max[(loc)]) #plan_max = Maximum number of plants in a location
-	    @constraint(m,xm2[loc in Location],sum(x["Wind Turbine",loc]).<=max_wt_pl*plan_max[(loc)])
-	    @constraint(m,xm3[loc in Location],sum(x["Solar panel",loc]).<=max_sp_pl*plan_max[(loc)])
+	  	#@constraint(m,xm[loc in Location],sum(x["Plant",loc]).<=plan_max[(loc)]) #plan_max = Maximum number of plants in a location
+	    #@constraint(m,xm2[loc in Location],sum(x["Wind Turbine",loc]).<=max_wt_pl*plan_max[(loc)])
+	    #@constraint(m,xm3[loc in Location],sum(x["Solar panel",loc]).<=max_sp_pl*plan_max[(loc)])
 	   	@constraint(m,sum(x["Wind Turbine",Location])<=max_wt)
 	    @constraint(m,sum(x["Solar panel",Location])<=max_sp)
 	    @constraint(m,xm1[i in component,loc in Location],x[i,loc]>=0)
