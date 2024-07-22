@@ -53,19 +53,12 @@ function modgen0(n_loc,Location,Location_tr,trline,Param,n_lij,p_val)
 	    x = m[:x]
 	    nt = m[:nt]
 	    
-	   #@constraint(m,xm[loc in Location],sum(x["Plant",loc]).<=1)
-	   #@constraint(m,xm2[loc in Location],sum(x["Wind Turbine",loc]).<=20)
-	   #@constraint(m,xm3[loc in Location],sum(x["Solar panel",loc]).<=2)
-	    #@constraint(m,sum(x["Plant",Location]).<=4)
+
+	   
 	    @constraint(m,sum(x["Wind Turbine",Location])<=max_wt)
 	    @constraint(m,sum(x["Solar panel",Location])<=max_sp)
 	    @constraint(m,xm1[i in component,loc in Location],x[i,loc]>=0)
-	    #@constraint(m,x["Wind Turbine","r2"]==3)
-	    #@constraint(m,x["Solar panel","r2"]==3)
-	    #@constraint(m,x["Plant","r1"]==1)
-	    #@constraint(m,sum(x["Plant",Location])==1)
-	    #@constraint(m,trxp[loc in Location,l=1:n_lij],20*nt[trline[findall( x -> x[1] == loc, trline )],l].>=sum(x[:,loc]))
-	    #@constraint(m,trxv[loc in Location[2:end],l=1:n_lij],nt[trline[findall( x -> x[2] == loc, trline )],l].<=sum(x[:,loc]))
+	    
 	    @constraint(m,trx[loc in Location],(sum(nt[(p,v),l] for l in 1:n_lij for (p,v) in trline if v==loc)+sum(nt[(p,v),l] for l in 1:n_lij for (p,v) in trline if p==loc))*2500>=sum(x[:,loc]))
 	    
 	    return m
