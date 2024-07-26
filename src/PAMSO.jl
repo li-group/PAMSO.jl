@@ -22,7 +22,9 @@ export set_hlmodel
 export set_llmodel
 export set_fsmodel
 export set_lb
-export set_ube
+export set_ub
+export empty_function
+export empty_model
 
 mutable struct PAMSO_params
 	init::Vector
@@ -31,12 +33,36 @@ mutable struct PAMSO_params
 	input_types::Vector
 
 	function PAMSO_params(init,lb,ub,input_types)
-		new(init,lb,ub,input_types)
+		if(!all(isa.(init, Number)))
+			println("Error! : Invalid input. Intial parameters should be numeric")
+			new([],[],[],[])
+	
+		elseif(!all(isa.(lb, Number)))
+			println("Error! : Invalid input. Lower bound should be numeric")
+			new([],[],[],[])
+		
+		elseif(!all(isa.(ub, Number)))
+			println("Error! : Invalid input. Upper bound should be numeric")
+			new([],[],[],[])
+		
+		elseif(sum(input_types.=="I")+sum(input_types.=="R")!=length(input_types))
+			println("Error! : Invalid input. Input types should contain only I or R")
+			new([],[],[],[])
+		
+		elseif !(length(init)==length(ub)==length(lb)==length(input_types))
+			println("Error! : Dimmensions not matching for inputs")
+			new([],[],[],[])
+		else
+			new(init,lb,ub,input_types)
+		end	
 	end
 end
 
 
-
+function empty_function()
+    # No operation
+end
+empty_model = Model()
 
 mutable struct PAMSO_block
     high_level_model::Function
@@ -46,16 +72,31 @@ mutable struct PAMSO_block
     dimmensions::Int
     param::PAMSO_params
     Param_best::Vector	
-
+    
     function PAMSO_block(high_level_model,low_level_model,full_space_model,dimmensions,params)
-    	function MBBF(x)
-    		high_level_des = high_level_model(x)
- 			obj = low_level_model(high_level_des)
- 		return obj
- 	end
-
-	    	
-	    new(high_level_model,low_level_model,full_space_model,MBBF,dimmensions,params,[])
+    	if(!isa(high_level_model,Function))
+			println("Error! : Invalid input. Input for high-level model should be a function")
+			new(empty_function,empty_function,empty_model,empty_function,0,params,[])
+		
+		elseif(!isa(low_level_model,Function))
+			println("Error! : Invalid input. Input for high-level model  should be a function")
+			new(empty_function,empty_function,empty_model,empty_function,0,params,[])
+		
+		elseif(!isa(full_space_model,JuMP.Model))
+			println("Error! : Invalid input. Input for full-space model should be a JuMP model")
+			new(empty_function,empty_function,empty_model,empty_function,0,params,[])
+		
+		elseif(length(params.init)!=dimmensions)
+			println("Error! : Wrong dimmensions")
+			new(empty_function,empty_function,empty_model,empty_function,0,params,[])
+		else
+	    	function MBBF(x)
+	    		high_level_des = high_level_model(x)
+	 			obj = low_level_model(high_level_des)
+	 		return obj
+	 		end
+ 		    new(high_level_model,low_level_model,full_space_model,MBBF,dimmensions,params,[])
+		end
 	end
 
 
@@ -114,28 +155,79 @@ end
 
 	
 function set_initparams(PAMSO_block,init)
+	if(!all(isa.(init, Number)))
+		println("Error! : Invalid input. Input should be numeric")
+		return
+	end
 	PAMSO_block.param.init = init
+	if(length(init)!=PAMSO_block.dimmensions)
+		println("Warning! : The dimmensions in the existing PAMSO block and the intial parameters do not match")
+	end
 end
 
 function set_lb(PAMSO_block,lb)
+	if(!all(isa.(lb, Number)))
+		println("Error! : Invalid input. Input should be numeric")
+		return
+	end
 	PAMSO_block.param.lb = lb
+	if(length(lb)!=PAMSO_block.dimmensions)
+		println("Warning! : The dimmensions in the existing PAMSO block and the lower bound do not match")
+	end
 end
 
 function set_ub(PAMSO_block,ub)
+	if(!all(isa.(ub, Number)))
+		println("Error! : Invalid input. Input should be numeric")
+		return
+	end
 	PAMSO_block.param.ub = ub
+	if(length(ub)!=PAMSO_block.dimmensions)
+		println("Warning! : The dimmensions in the existing PAMSO block and the upper bound do not match")
+	end
 end
 
 function set_inputtype(PAMSO_block,input_types)
+	if(sum(input_types.=="I")+sum(input_types.=="R")!=length(input_types))
+		println("Error! : Invalid input. Input should contain only I or R")
+		return
+	end
 	PAMSO_block.param.input_types = input_types
+	if(length(input_types)!=PAMSO_block.dimmensions)
+		println("Warning! : The dimmensions in the existing PAMSO block and the vector of input types do not match")
+	end
 end
 
 function set_hlmodel(PAMSO_block,high_level_model)
+	if(!isa(high_level_model,Function))
+		println("Error! : Invalid input. Input should be a function")
+		return 
+	end
 	PAMSO_block.high_level_model = high_level_model
 end
 function set_llmodel(PAMSO_block,low_level_model)
+	if(!isa(low_level_model,Function))
+		println("Error! : Invalid input. Input should be a function")
+		return 
+	end
 	PAMSO_block.low_level_model = low_level_model
 end
+
+function set_MBBF(PAMSO_block)
+	function MBBF(x)
+    	high_level_des = PAMSO_block.high_level_model(x)
+ 		obj = PAMSO_block.low_level_model(high_level_des)
+ 	return obj
+ 	end
+		
+	PAMSO_block.MBBF = MBBF
+end
+
 function set_fsmodel(PAMSO_block,full_space_model)
+	if(!isa(full_space_model,JuMP.Model))
+		println("Error! : Invalid input. Input should be a JuMP model")
+		return 
+	end
 	PAMSO_block.full_space_model = full_space_model
 end
 src_dir = @__DIR__

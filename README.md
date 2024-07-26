@@ -46,3 +46,15 @@ We have a few examples of cases in the examples folder. They are listed in docum
 ```
 ## [Citation](#citation)
 Cite us 
+
+ ```
+@misc{ramanujam2024pamsoparametricautotuningmultitime,
+      title={PAMSO: Parametric Autotuning Multi-time Scale Optimization Algorithm}, 
+      author={Asha Ramanujam and Can Li},
+      year={2024},
+      eprint={2407.16570},
+      archivePrefix={arXiv},
+      primaryClass={math.OC},
+      url={https://arxiv.org/abs/2407.16570}, 
+}
+  ```
