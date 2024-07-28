@@ -157,6 +157,7 @@ end
         end
     end
 
+    
     # Defining objective
     @objective(m, Min, sum(N[i, t]*N_cost[i] for i in I for t in T1) +
               sum(pi[r, t] * R_cost[r] for r in R for t in T1) +
@@ -164,7 +165,8 @@ end
               sum(Vmax_pow[r] * R_cost[r]  for r in Task_resources)*weeks+
               sum(Xmax_pow[r] * X_cost[r] for r in R_mat)*weeks)
      
-
+    
+        
    
     
 
@@ -172,6 +174,11 @@ end
 
    
    if(ret_mod==1)
+        for r in R
+            for n in 0:weeks
+                @constraint(m,X[r, n*24*7]==X0[r])
+            end
+        end
         return m
     end
     set_optimizer_attribute(m,"TimeLimit",150)
