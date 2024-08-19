@@ -173,54 +173,15 @@ function modgen0(n_loc,Location,Location_tr,trline,Param,n_lij,p_val)
 	    V_flow = m[:V_flow]
 	    n = m[:nt]
 	    p_flow_loss= m[:p_flow_loss]
-	    #p_pos= m[:p_pos]
-	    #p_neg= m[:p_neg]
-	    lo = 0.95
-	    up = 1.05
-	    #M = 3000*n_bun_agg
-	    #@variable(m,lo^2<=Cpp[loc in Location_tr,1:n_tm]<=up^2)
-	    #@variable(m,Cpv[(p,v) in trline,1:n_tm])
-	    #yp = m[:yp]
-	    #M1 = M*2
-	    #@constraint(m,reftheta[t=1:n_tm],theta_flow["ru",t]==0)
-	    #@constraint(m,thetacon1[p in Location_tr,t=1:n_tm],V_flow[p,t]<=1.05)
-	    #@constraint(m,thetacon2[p in Location_tr,t=1:n_tm],V_flow[p,t]>=0.95)
-	    #@constraint(m,tr1[(p,v) in trline,t=1:n_tm,l=1:n_lij],-0.1*M*(1-n[(p,v),l]).<=0.1*p_flow[(p,v),l,t].-0.1*S_base*B[(p,v)]*(theta_flow[p,t]-theta_flow[v,t]))
-	    #@constraint(m,tr2[(p,v) in trline,t=1:n_tm,l=1:n_lij],0.1*p_flow[(p,v),l,t].-0.1*S_base*B[(p,v)]*(theta_flow[p,t]-theta_flow[v,t]).<=0.1*M*(1-n[(p,v),l]))
 	    @constraint(m,tr3[(p,v) in trline,t=1:n_tm],-0.1*Fl_max[(p,v)]*n[(p,v)]*24*d_m[t]*per_val.<=0.1*p_flow[(p,v),t]*S_base)
-	    @constraint(m,tr4[(p,v) in trline,t=1:n_tm],0.1*p_flow[(p,v),t]*S_base.<=0.1*Fl_max[(p,v)]*n[(p,v)]*24*d_m[t]*per_val)
-	    #@constraint(m,tr5[(p,v) in trline,t=1:n_tm,i=1:N,l=1:n_lij],1*p_flow_loss[(p,v),l,t]>=1*pvlin[(p,v,i,2)]*(V_flow[p,t]-V_flow[v,t])+1*pvlin[(p,v,i,1)])
-	    #@constraint(m,tr6[(p,v) in trline,t=1:n_tm,i=1:N,l=1:n_lij],1*p_flow_loss[(p,v),l,t]>=-1*pvlin[(p,v,i,2)]*(V_flow[p,t]-V_flow[v,t])+1*pvlin[(p,v,i,1)])
-	   # @constraint(m,tr7[(p,v) in trline,t=1:n_tm,l=1:n_lij],0.1*p_flow_loss[(p,v),l,t]<=0.1*Fl_max[(p,v)]*n[(p,v),l])
-	    #@constraint(m,tr8[(p,v) in trline,l=1:n_lij-1],n[(p,v),l]>=n[(p,v),l+1])
+	    @constraint(m,tr4[(p,v) in trline,t=1:n_tm],0.1*p_flow[(p,v),t]*S_base.<=0.1*Fl_max[(p,v)]*n[(p,v)]*24*d_m[t]*per_val)   
 	    @constraint(m,tr8a[(p,v) in trline],n[(p,v)]==n[(v,p)])
-	    #@constraint(m,tr9[(p,v) in trline,t=1:n_tm,l=1:n_lij],Cpv[(p,v),t]==(V_flow[p,t]-V_flow[v,t]))
-	   # @constraint(m,tr10[(p,v) in trline,t=1:n_tm,l=1:n_lij],0.1*p_flow_loss[(p,v),l,t]==0)
-	    
-	    #@constraint(m,tr11[p in Location_tr,t=1:n_tm,l=1:n_lij],Cpp[p,t]>=2*lo*V_flow[p,t]-lo^2)
-	    #@constraint(m,tr12[p in Location_tr,t=1:n_tm,l=1:n_lij],Cpp[p,t]>=2*up*V_flow[p,t]-up^2)
-	    #@constraint(m,tr13[p in Location_tr,t=1:n_tm,l=1:n_lij],Cpp[p,t]<=(lo+up)*V_flow[p,t]-lo*up)
-	    #@constraint(m,tr14[(p,v) in trline,t=1:n_tm,l=1:n_lij],Cpv[(p,v),t]>=lo*V_flow[p,t]+lo*V_flow[v,t]-lo^2)
-	    #@constraint(m,tr15[(p,v) in trline,t=1:n_tm,l=1:n_lij],Cpv[(p,v),t]>=up*V_flow[p,t]+up*V_flow[v,t]-up^2)
-        #@constraint(m,tr16[(p,v) in trline,t=1:n_tm,l=1:n_lij],Cpv[(p,v),t]<=lo*V_flow[p,t]+up*V_flow[v,t]-lo*up)
-        #@constraint(m,tr17[(p,v) in trline,t=1:n_tm,l=1:n_lij],Cpv[(p,v),t]<=up*V_flow[p,t]+lo*V_flow[v,t]-lo*up)
-
         @constraint(m,tr18[(p,v) in trline,t=1:n_tm],p_flow[(p,v),t]+p_flow[(v,p),t]>=0)
-        #@constraint(m,tr15[(p,v) in trline,t=1:n_tm,l=1:n_lij],Cpv[(p,v),t]>=(1.05*(V_flow[p,t]-V_flow[v,t])+V_flow[p,t]*0.1-0.105))
-        #@constraint(m,tr11[(p,v) in trline,t=1:n_tm,l=1:n_lij],Cpv[(p,v),t]<=(0.95*(V_flow[p,t]-V_flow[v,t])+V_flow[p,t]*0.1-0.095))
-        #@constraint(m,tr12[(p,v) in trline,t=1:n_tm,l=1:n_lij],Cpv[(p,v),t]<=(1.05*(V_flow[p,t]-V_flow[v,t])-V_flow[p,t]*0.1+0.095))
-        #@constraint(m,tr13[(p,v) in trline,t=1:n_tm,l=1:n_lij],Cpv[(p,v),t]>=(0.95*(V_flow[p,t]-V_flow[v,t])-V_flow[v,t]*0.1+0.095))
-        #@constraint(m,tr19[(p,v) in trline,t=1:n_tm,l=1:n_lij],0.1*p_flow[(p,v),l,t]-0.1*g[(p,v)]*(Cpp[p,t]-Cpv[(p,v),t])>=-0.1*M*(1-n[(p,v),l]))
-        #@constraint(m,tr22[(p,v) in trline,t=1:n_tm,l=1:n_lij],0.1*p_flow[(p,v),l,t]-0.1*g[(p,v)]*(Cpp[p,t]-Cpv[(p,v),t])<=0.1*M*(1-n[(p,v),l]))
-        #@constraint(m,tr20[(p,v) in trline,t=1:n_tm,l=1:n_lij],Cpv[(p,v),t]==V_flow[p,t]*V_flow[v,t])
-        #@constraint(m,tr21[p in Location_tr,t=1:n_tm,l=1:n_lij],Cpp[p,t]==V_flow[p,t]^2)
-
 	    return m
 	end
 	m = transcon2(m)
 	println("yes")
 	function obj(m) #Function to objective function
-
 	    Tr_1 = m[:Tr_1]
 	    sltr_1 = m[:sltr_1]
 	    x = m[:x]
@@ -235,12 +196,7 @@ function modgen0(n_loc,Location,Location_tr,trline,Param,n_lij,p_val)
 	    global FIXOP_l = @expression(m,[(p,v) in trline],sum(FOC_l[(p,v)].*n[(p,v)])/(2*n_m))
 	    global CAPEX = @expression(m,[i in component],sum(DIC[(i)].*x[i,:].*par_val[(i)])/n_m)
 	    global CAPEX_l = @expression(m,[(p,v) in trline],sum(DIC_l[(p,v)].*n[(p,v)])/(2*n_m))
-
-	    #@constraint(m,sum(CAPEX) <= (DIC[("Plant",)]+ 2*DIC[("Solar panel",)]+5*DIC[("Wind Turbine",)])/6) #Investment related constraint
-
 	    @objective(m,Min,-(sum(matcostc)-sum(transcostc)-sum(eleccost)-sum(FIXOP)-sum(FIXOP_l)-sum(CAPEX)-sum(CAPEX_l))/1000)
-	    #@objective(m,Max,(sum(matcostc)-sum(transcostc)-sum(eleccost)-sum(FIXOP)-sum(CAPEX))/1000)
-	    #@objective(m,Max,sum(matcostc))
 	    return m
 	end
 	#print(values(P))
