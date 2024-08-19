@@ -103,18 +103,12 @@ function modgen0(n_loc,Location,Location_tr,trline,Param,n_lij,p_val)
 	    M1 = 100
 	    coc = 0.1
 	    
-	    #@constraint(m,zcon[i in plant,loc in Location,t=1:n_tm,mod in modes],z[i,loc,mod,mod,t]==0)
-	    #@constraint(m,zcon1[i in plant,loc in Location,t=1:n_tm,mod in modes],z[i,loc,mod,mod,t]<=x[i,loc])
+	    
 	    @constraint(m,modesxy[i in plant,loc in Location,t=1:n_tm],sum(y[i,loc,modes,t])==x[i,loc]*d_m[t]*24)
-	    #@constraint(m,zcon2[i in plant,loc in Location,t=1:n_tm],sum(z[i,loc,modes,modes,t])<=x[i,loc])
-	    #@constraint(m,modesyz[i in plant,loc in Location,t=1:n_tm,k=1:n_k,h=2:n_s,mod in modes],sum(z[i,loc,modes,mod,t-1])-sum(z[i,loc,mod,modes,t-1])==y[i,loc,mod,t]-y[i,loc,mod,t-1])
-	    #@constraint(m,modestryz[i in plant,loc in Location,t=1:n_tm,k=1:n_k,h=2:n_s,mod in modes,mod1 in modes],sum(z[i,loc,mod1,mod,t-h1] for h1 in 1:θ_min[i,mod1,mod] if h1<=h-1)<=y[i,loc,mod,t])
-	    @constraint(m,stoic[i in plant,mod in modes,c in chemical,c1 in chemical,loc in Location,t=1:n_tm],1000*F_1_mod[i,c,loc,mod,t].*α[i,c1,mod]./mw[(c,)].==1000*F_1_mod[i,c1,loc,mod,t].*α[i,c,mod]./mw[(c1,)])
+	   @constraint(m,stoic[i in plant,mod in modes,c in chemical,c1 in chemical,loc in Location,t=1:n_tm],1000*F_1_mod[i,c,loc,mod,t].*α[i,c1,mod]./mw[(c,)].==1000*F_1_mod[i,c1,loc,mod,t].*α[i,c,mod]./mw[(c1,)])
 	    @constraint(m,stoichadd[i in plant,c in chemical,loc in Location,t=1:n_tm],F_1[i,c,loc,t].==sum(F_1_mod[i,c,loc,modes,t]))
 	    @constraint(m,minp[i in plant,mod in modes,loc in Location,t=1:n_tm],F_1_mod[i,Base_chem[i],loc,mod,t]>=y[i,loc,mod,t].*C_min[(i,Base_chem[i],mod)])
 	    @constraint(m,maxp[i in plant,mod in modes,loc in Location,t=1:n_tm],F_1_mod[i,Base_chem[i],loc,mod,t]<=y[i,loc,mod,t].*C_max[(i,Base_chem[i],mod)])
-	    #@constraint(m,ramp1[i in plant,mod in modes,loc in Location,t=1:n_tm-1],F_1_mod[i,Base_chem[i],loc,mod,t+1]<=F_1_mod[i,Base_chem[i],loc,mod,t]+ΔC[(i,Base_chem[i],mod)]+M1*(2-y[i,loc,mod,t]-y[i,loc,mod,t+1]))
-	    #@constraint(m,ramp2[i in plant,mod in modes,loc in Location,t=1:n_tm-1],F_1_mod[i,Base_chem[i],loc,mod,t+1]>=F_1_mod[i,Base_chem[i],loc,mod,t]-ΔC[(i,Base_chem[i],mod)]-M1*(2-y[i,loc,mod,t]-y[i,loc,mod,t+1]))
 	    @constraint(m,inven1[i in plant,c in chemical,loc in Location],Q_1[i,c,loc,1].==F_1[i,c,loc,1] -sum(Tr_1[i,c,loc,Consumer_supplier,1]))
 	    @constraint(m,inven[i in plant,c in chemical,loc in Location,t = 2:n_tm],Q_1[i,c,loc,t].==Q_1[i,c,loc,t-1]+F_1[i,c,loc,t]-sum(Tr_1[i,c,loc,Consumer_supplier,t]))
 	    @constraint(m,transdem[j in Consumer_supplier,c in c_jp[(j,)],t = 1:n_tm],sum(Tr_1[plant,c,Location,j,t])+sltr_1[c,j,t]==D[(c,j,t)])
@@ -124,13 +118,9 @@ function modgen0(n_loc,Location,Location_tr,trline,Param,n_lij,p_val)
 	    	for i in plant
 	       		if(C_min[(i,Base_chem[i],mod)]==0 && C_max[(i,Base_chem[i],mod)]==0) 
 	       			for t = 1:n_tm
-	       				for k = 1:n_k
-	       					for h = 1:n_s
-	       						for c in chemical
-	       							for loc in Location
-	    								@constraint(m,F_1_mod[i,c,loc,mod,t]==0)
-	    							end
-	    						end
+	       				for c in chemical
+	       					for loc in Location
+	    						@constraint(m,F_1_mod[i,c,loc,mod,t]==0)
 	    					end
 	    				end
 	    			end
@@ -153,13 +143,13 @@ function modgen0(n_loc,Location,Location_tr,trline,Param,n_lij,p_val)
 	    @variable(m,Dempl[loc in Location,1:n_tm])
 	    @constraint(m,gcon[loc in Location,t=1:n_tm],S_base*Gen[loc,t].==sum(P[("Solar panel",loc,t,k,h)]*w[(k,t)] for h in 1:24 for k in 1:n_k).*x["Solar panel",loc]+sum(P[("Wind Turbine",loc,t,k,h)]*w[(k,t)] for h in 1:24 for k in 1:n_k).*x["Wind Turbine",loc])
 	    @constraint(m,dcon[loc in Location,t=1:n_tm],S_base*Dempl[loc,t].==sum(Po_1[plant,loc,t]))
-	    #theta_flow = m[:theta_flow]
+	    
 	    
 	    coc = 1
 	    @constraint(m,curtail[loc in Location,t=1:n_tm], p_cu[loc,t] <= Gen[loc,t])
 	    @constraint(m,powbaln1[loc in Location,t=1:n_tm],p_cu[loc,t] + Dempl[loc,t].==Gen[loc,t] -sum(p_flow[(p,v),t] for (p,v) in trline if p==loc)) 
 	    @constraint(m,powbalru[t=1:n_tm],p_flowext[t]==sum(p_flow[(p,v),t] for (p,v) in trline if p=="ru")) 
-	    #@constraint(m,comppow[t=1:n_tm],sum(Gen[Location,t])-sum(Po_1[Location,t])-sum(p_cu[Location,t])>=-p_flowext[t])
+	  
 	    return m
 	end
 	m = powerbal(m)
