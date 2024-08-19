@@ -28,7 +28,6 @@ function modgen0(n_loc,Location,Location_tr,trline,Param,n_lij,p_val)
 	    @variable(m,x[i in component,loc in Location],Int)
 	    @variable(m,nt[(i,j) in trline],Int)
 	    @variable(m,0<=y_1[i in plant,loc in Location,mod in modes,1:n_tm])
-	    @variable(m,0<=z_1[i in plant,loc in Location,mod in modes,mod1 in modes,1:n_tm])
 	    @variable(m,F_1[i in plant,c in chemical,loc in Location,1:n_tm])
 	    @variable(m,F_1_mod[i in plant,c in chemical,loc in Location,mod in modes,1:n_tm])
 	    @variable(m,0<=Q_1[i in plant,c in chemical,loc in Location,1:n_tm]<=80000)
@@ -93,7 +92,6 @@ function modgen0(n_loc,Location,Location_tr,trline,Param,n_lij,p_val)
 	function chemplant(m) #Function to add constraints relating to chemical plant
 	    x = m[:x]
 	    y= m[:y_1]
-	    z = m[:z_1]
 	    F_1_mod = m[:F_1_mod]
 	    F_1 = m[:F_1]
 	    Q_1 = m[:Q_1]
