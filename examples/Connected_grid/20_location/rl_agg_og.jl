@@ -177,9 +177,9 @@ function modgen0(n_loc,Location,Location_tr,trline,Param,n_lij,p_val)
 	    global transcostc = @expression(m,[i in plant,c in chemical,j in Consumer_supplier,loc in Location],sum(Tr_1[i,c,loc,j,:].*S[(i,c)].*C_t[(c)].*dist[(loc,j)]))
 	    global eleccost = @expression(m,[t = 1:n_tm],sum(Ce[(t,k,h)]*w[(k,t)] for h in 1:24 for k in 1:n_k).*p_flowext[t]*elec_fac*S_base/(24*d_m[t]))
 	    global FIXOP = @expression(m,[i in component],sum(FOC[(i)].*x[i,:].*par_val[(i)]))
-	    global FIXOP_l = @expression(m,[(p,v) in trline],sum(FOC_l[(p,v)].*n[(p,v)]))
+	    global FIXOP_l = @expression(m,[(p,v) in trline],sum(FOC_l[(p,v)].*n[(p,v)])/2)
 	    global CAPEX = @expression(m,[i in component],sum(DIC[(i)].*x[i,:].*par_val[(i)]))
-	    global CAPEX_l = @expression(m,[(p,v) in trline],sum(DIC_l[(p,v)].*n[(p,v)]))
+	    global CAPEX_l = @expression(m,[(p,v) in trline],sum(DIC_l[(p,v)].*n[(p,v)])/2)
 	    @objective(m,Min,-(sum(matcostc)-sum(transcostc)-sum(eleccost)-sum(FIXOP)-sum(FIXOP_l)-sum(CAPEX)-sum(CAPEX_l))/1000)
 	    return m
 	end
