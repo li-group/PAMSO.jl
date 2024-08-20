@@ -89,7 +89,6 @@ function modgen0(n_loc,Location_u,Location,Location_tr,trline,Param,n_lij,p_val,
 	function chemplant(m) #Function to add constraints relating to chemical plant
 	    x = m[:x]
 	    y= m[:y_1]
-	    z = m[:z_1]
 	    F_1_mod = m[:F_1_mod]
 	    F_1 = m[:F_1]
 	    Q_1 = m[:Q_1]
