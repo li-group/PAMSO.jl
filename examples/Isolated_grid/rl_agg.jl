@@ -27,10 +27,7 @@ function modgen0(n_loc,Location,Location_tr,trline,Param,n_lij,p_val)
 	    set_optimizer_attribute(m, "DualReductions", 0)
 	    @variable(m,x[i in component,loc in Location],Int)
 	    @variable(m,nt[(i,j) in trline],Int)
-	   #@variable(m,nt1[(i,j) in trline],Int)
-	   #@constraint(m,sumnt[(p,v) in trline],sum(nt[(p,v),:]).==nt1[(p,v)])
 	    @variable(m,0<=y_1[i in plant,loc in Location,mod in modes,1:n_tm])
-	    @variable(m,0<=z_1[i in plant,loc in Location,mod in modes,mod1 in modes,1:n_tm])
 	    @variable(m,F_1[i in plant,c in chemical,loc in Location,1:n_tm])
 	    @variable(m,F_1_mod[i in plant,c in chemical,loc in Location,mod in modes,1:n_tm])
 	    @variable(m,0<=Q_1[i in plant,c in chemical,loc in Location,1:n_tm])
@@ -158,14 +155,12 @@ function modgen0(n_loc,Location,Location_tr,trline,Param,n_lij,p_val)
 	    @variable(m,Dempl[loc in Location,1:n_tm])
 	    @constraint(m,gcon[loc in Location,t=1:n_tm],0.1*Gen[loc,t].==0.1*sum(sum(P[(i,loc,t,k,h)]*w[(k,t)] for h in 1:24 for k in 1:n_k).*x[i,loc] for i in powergen)/S_base)
 	    @constraint(m,dcon[loc in Location,t=1:n_tm],S_base*Dempl[loc,t].==sum(Po_1[plant,loc,t]))
-	    #theta_flow = m[:theta_flow]
 	    
 	    coc = 1
 	    @constraint(m,curtail[loc in Location,t=1:n_tm], p_cu[loc,t] <= Gen[loc,t])
 	    @constraint(m,powbaln1[loc in Location,t=1:n_tm],p_cu[loc,t] + Dempl[loc,t].==Gen[loc,t]-sum(p_flow[(p,v),t] for (p,v) in trline if p==loc)) 
 	    @constraint(m,powbalru[t=1:n_tm],p_flowext[t]==sum(p_flow[(p,v),t] for (p,v) in trline if p=="ru")) 
 	    @constraint(m,powbalru1[t=1:n_tm],p_flowext[t]==0)
-	    #@constraint(m,comppow[t=1:n_tm],sum(Gen[Location,t])-sum(Po_1[Location,t])-sum(p_cu[Location,t])>=-p_flowext[t])
 	    return m
 	end
 	m = powerbal(m)
@@ -200,21 +195,18 @@ function modgen0(n_loc,Location,Location_tr,trline,Param,n_lij,p_val)
 	    y = m[:y_1]
 	    n = m[:nt]
 	    p_flowext = m[:p_flowext]
-	    #nso = m[:n_storage]
 	    global matcostc = @expression(m,[i in plant,c in chemical],sum(Tr_1[i,c,:,:,:].*C_c[(c)])-sum(sltr_1[c,:,:].*C_c[(c)]*(sl_fac)))
 	    #global matcostnormc = @expression(m,[c in chemical],sum(Tr_1[c,:,:,:].*C_c[(c,)]))
 	    global transcostc = @expression(m,[i in plant,c in chemical,j in Consumer_supplier,loc in Location],sum(Tr_1[i,c,loc,j,:].*S[(i,c)].*C_t[(c)].*dist[(loc,j)]))
 	    global eleccost = @expression(m,[t = 1:n_tm],sum(w[(k,t)] for h in 1:24 for k in 1:n_k).*p_flowext[t]*elec_fac*S_base/(24*d_m[t]))
-	    global FIXOP = @expression(m,[i in component],sum(FOC[(i)].*x[i,:])/n_m)
-	    global FIXOP_l = @expression(m,[(p,v) in trline],sum(FOC_l[(p,v)].*n[(p,v)])/(2*n_m))
-	    global CAPEX = @expression(m,[i in component],sum(DIC[(i)].*x[i,:])/n_m)
-	    global CAPEX_l = @expression(m,[(p,v) in trline],sum(DIC_l[(p,v)].*n[(p,v)])/(2*n_m))
-	    #global CAP_st = @expression(m,[i in storage],sum(DIC[(i)].*nso[i,:])/(n_m*2))
-	    #@constraint(m,sum(CAPEX) <= (DIC[("Plant",)]+ 2*DIC[("Solar panel",)]+5*DIC[("Wind Turbine",)])/6) #Investment related constraint
+	    global FIXOP = @expression(m,[i in component],sum(FOC[(i)].*x[i,:]))
+	    global FIXOP_l = @expression(m,[(p,v) in trline],sum(FOC_l[(p,v)].*n[(p,v)])/(2))
+	    global CAPEX = @expression(m,[i in component],sum(DIC[(i)].*x[i,:]))
+	    global CAPEX_l = @expression(m,[(p,v) in trline],sum(DIC_l[(p,v)].*n[(p,v)])/(2))
+	    
 
 	    @objective(m,Min,-(sum(matcostc)-sum(transcostc)-sum(eleccost)-sum(FIXOP)-sum(FIXOP_l)-sum(CAPEX)-sum(CAPEX_l))/1000)
-	    #@objective(m,Max,(sum(matcostc)-sum(transcostc)-sum(eleccost)-sum(FIXOP)-sum(CAPEX))/1000)
-	    #@objective(m,Max,sum(matcostc))
+	    
 	    return m
 	end
 	#print(values(P))
