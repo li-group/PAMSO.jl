@@ -47,10 +47,7 @@ df_loc = DataFrame(CSV.File(df_loc_path))
 			if(nt0[(i,j),1]>=1)
 				push!(tline,Tuple([i,j]))
 				nt_num[(i,j)] = trunc(Int,nt0[(i,j),1]) 
-				#nt_num[(i,j)] = 1
-				#push!(tline,Tuple([j,i]))
 	            nt_num[(j,i)] = trunc(Int,nt0[(i,j),1]) 
-				#nt_num[(j,i)] =nt_num[(i,j)] 
 				n_bun[(i,j)] = nt_num[(i,j)]
 	       		n_bun[(j,i)] = nt_num[(i,j)]
 	       	if (!(i in Loc_n) && i in Location)
