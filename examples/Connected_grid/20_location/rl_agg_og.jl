@@ -36,7 +36,6 @@ function modgen0(n_loc,Location,Location_tr,trline,Param,n_lij,p_val)
 	    @variable(m,Po_1[i in plant,loc in Location_tr,1:n_tm])
 	    @variable(m,p_flow[(i,j) in trline,1:n_tm])
 	    @variable(m,p_flowext[1:n_tm])
-	    @variable(m,p_flow_loss[(i,j) in trline,1:n_lij,1:n_tm]>=0)
 	    @variable(m,p_cu[loc in Location_tr,1:n_tm]>=0)
 	    return m
 
@@ -133,8 +132,7 @@ function modgen0(n_loc,Location,Location_tr,trline,Param,n_lij,p_val)
 	    Po_1 = m[:Po_1]
 	    p_flow= m[:p_flow]
 	    p_cu= m[:p_cu]
-	    p_flow_loss= m[:p_flow_loss]
-	    p_flowext = m[:p_flowext]
+	   p_flowext = m[:p_flowext]
 	    x = m[:x]
 	   
 	    @variable(m,Gen[loc in Location,1:n_tm])
@@ -156,7 +154,6 @@ function modgen0(n_loc,Location,Location_tr,trline,Param,n_lij,p_val)
 	function transcon2(m) #Function to add constraints on transmision loss with peice wise linear power loss
 	    p_flow= m[:p_flow]
 	    n = m[:nt]
-	    p_flow_loss= m[:p_flow_loss]
 	    @constraint(m,tr3[(p,v) in trline,t=1:n_tm],-0.1*Fl_max[(p,v)]*n[(p,v)]*24*d_m[t]*per_val.<=0.1*p_flow[(p,v),t]*S_base)
 	    @constraint(m,tr4[(p,v) in trline,t=1:n_tm],0.1*p_flow[(p,v),t]*S_base.<=0.1*Fl_max[(p,v)]*n[(p,v)]*24*d_m[t]*per_val)   
 	    @constraint(m,tr8a[(p,v) in trline],n[(p,v)]==n[(v,p)])
