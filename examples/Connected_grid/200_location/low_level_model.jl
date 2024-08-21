@@ -86,7 +86,7 @@ df_loc = DataFrame(CSV.File(df_loc_path))
 	end
 	println(Loc_n)
 	if(length(Loc_n)==0)
-		return 10^10 #TODO : Modify
+		return high_level_des['obj']
 	end
 	m = modgen(n_loc_og,Location_u,Loc_n,Loc_ntr,tline,Param,plan_max,n_lij,maximum(values(n_bun)))
 	set_optimizer_attribute(m,"PreDual",2)
@@ -107,11 +107,6 @@ df_loc = DataFrame(CSV.File(df_loc_path))
 	end
 	for (i,j) in tline
 		c1 = ones(n_lij)
-		for k in 1:nt_num[(i,j)]
-	    #for k in 1:n_lij
-	    #if(nt_num[(i,j)]==1)
-			#c1[k] = 1
-		end
 		@constraint(m,nt[(i,j),:].==c1)
 	end
 	for i in plant
