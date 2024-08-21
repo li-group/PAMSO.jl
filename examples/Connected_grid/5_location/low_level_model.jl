@@ -34,11 +34,8 @@ function gen_lowlevel(high_level_des)
 			if(nt0[(i,j)]>=1)
 				push!(tline,Tuple([i,j]))
 				nt_num[(i,j)] = trunc(Int,nt0[(i,j),1]) 
-				#nt_num[(i,j)] = 1
-				#push!(tline,Tuple([j,i]))
 	            nt_num[(j,i)] = trunc(Int,nt0[(i,j),1]) 
-				#nt_num[(j,i)] =nt_num[(i,j)] 
-				n_bun[(i,j)] = nt_num[(i,j)]
+			n_bun[(i,j)] = nt_num[(i,j)]
 	       		n_bun[(j,i)] = nt_num[(i,j)]
 	       		
 			end
@@ -52,8 +49,6 @@ function gen_lowlevel(high_level_des)
 		plan_max[(i)] =100
 	end 
 	n_lij = 1
-
-	#n_lij = maximum(values(nt_num))
 
 	println(n_bun)
 	println(nt0)
@@ -70,17 +65,12 @@ function gen_lowlevel(high_level_des)
 	z_1 = m[:z_1]
 	x = m[:x]
 	nt = m[:nt]
-	#println(x)
+	
 	for i in Location
 		@constraint(m,x[:,i].==x0[:,i])
 	end
 	for (i,j) in tline
 		c1 = ones(n_lij)
-		for k in 1:nt_num[(i,j)]
-	    #for k in 1:n_lij
-	    #if(nt_num[(i,j)]==1)
-			#c1[k] = 1
-		end
 		@constraint(m,nt[(i,j),:].==c1)
 	end
 	for i in plant
