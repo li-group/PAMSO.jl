@@ -97,32 +97,32 @@ function modgen(n_loc,Location_u,Location,Location_tr,trline,Param,plan_max,n_li
 	    M1 = 100
 	    coc = 0.1
 	    
-	    @constraint(m,zcon[i in plant,loc in Location,t=1:n_tm,k=1:n_k,h=1:n_s,mod in modes],z[i,loc,mod,mod,t,k,h]==0)
-	    @constraint(m,zcon1[i in plant,loc in Location,t=1:n_tm,k=1:n_k,h=1:n_s,mod in modes],z[i,loc,mod,mod,t,k,h]<=x[i,loc])
+	    @constraint(m,zcon[i in plant,loc in Location,t=1:n_tm,k=1:n_k,h=1:n_s,mod1 in modes],z[i,loc,mod1,mod1,t,k,h]==0)
+	    @constraint(m,zcon1[i in plant,loc in Location,t=1:n_tm,k=1:n_k,h=1:n_s,mod1 in modes],z[i,loc,mod1,mod1,t,k,h]<=x[i,loc])
 	    @constraint(m,modesxy[i in plant,loc in Location,t=1:n_tm,k=1:n_k,h=1:n_s],sum(y[i,loc,modes,t,k,h])==x[i,loc])
 	    @constraint(m,zcon2[i in plant,loc in Location,t=1:n_tm,k=1:n_k,h=1:n_s],sum(z[i,loc,modes,modes,t,k,h])<=x[i,loc])
-	    @constraint(m,modesyz[i in plant,loc in Location,t=1:n_tm,k=1:n_k,h=2:n_s,mod in modes],sum(z[i,loc,modes,mod,t,k,h-1])-sum(z[i,loc,mod,modes,t,k,h-1])==y[i,loc,mod,t,k,h]-y[i,loc,mod,t,k,h-1])
-	    @constraint(m,modestryz[i in plant,loc in Location,t=1:n_tm,k=1:n_k,h=2:n_s,mod in modes,mod1 in modes],sum(z[i,loc,mod1,mod,t,k,h-h1] for h1 in 1:θ_min[i,mod1,mod] if h1<=h-1)<=y[i,loc,mod,t,k,h])
-	    @constraint(m,stoic[i in plant,mod in modes,c in chemical,c1 in chemical,loc in Location,t=1:n_tm,k=1:n_k,h=1:n_s],1000*F_1_mod[i,c,loc,mod,t,k,h].*α[i,c1,mod]./mw[(c,)].==1000*F_1_mod[i,c1,loc,mod,t,k,h].*α[i,c,mod]./mw[(c1,)])
+	    @constraint(m,modesyz[i in plant,loc in Location,t=1:n_tm,k=1:n_k,h=2:n_s,mod1 in modes],sum(z[i,loc,modes,mod1,t,k,h-1])-sum(z[i,loc,mod1,modes,t,k,h-1])==y[i,loc,mod1,t,k,h]-y[i,loc,mod1,t,k,h-1])
+	    @constraint(m,modestryz[i in plant,loc in Location,t=1:n_tm,k=1:n_k,h=2:n_s,mod1 in modes,mod2 in modes],sum(z[i,loc,mod2,mod1,t,k,h-h1] for h1 in 1:θ_min[i,mod2,mod1] if h1<=h-1)<=y[i,loc,mod1,t,k,h])
+	    @constraint(m,stoic[i in plant,mod1 in modes,c in chemical,c1 in chemical,loc in Location,t=1:n_tm,k=1:n_k,h=1:n_s],1000*F_1_mod[i,c,loc,mod1,t,k,h].*α[i,c1,mod1]./mw[(c,)].==1000*F_1_mod[i,c1,loc,mod1,t,k,h].*α[i,c,mod1]./mw[(c1,)])
 	    @constraint(m,stoichadd[i in plant,c in chemical,loc in Location,t=1:n_tm,k=1:n_k,h=1:n_s],F_1[i,c,loc,t,k,h].==sum(F_1_mod[i,c,loc,modes,t,k,h]))
-	    @constraint(m,minp[i in plant,mod in modes,loc in Location,t=1:n_tm,k=1:n_k,h=1:n_s],F_1_mod[i,Base_chem[i],loc,mod,t,k,h]>=y[i,loc,mod,t,k,h].*C_min[(i,Base_chem[i],mod)])
-	    @constraint(m,maxp[i in plant,mod in modes,loc in Location,t=1:n_tm,k=1:n_k,h=1:n_s],F_1_mod[i,Base_chem[i],loc,mod,t,k,h]<=y[i,loc,mod,t,k,h].*C_max[(i,Base_chem[i],mod)])
-	    @constraint(m,ramp1[i in plant,mod in modes,loc in Location,t=1:n_tm,k=1:n_k,h=1:n_s-1],F_1_mod[i,Base_chem[i],loc,mod,t,k,h+1]<=F_1_mod[i,Base_chem[i],loc,mod,t,k,h]+ΔC[(i,Base_chem[i],mod)]*y[i,loc,mod,t,k,h]+M1*(2*x[i,loc]-y[i,loc,mod,t,k,h]-y[i,loc,mod,t,k,h+1]))
-	    @constraint(m,ramp2[i in plant,mod in modes,loc in Location,t=1:n_tm,k=1:n_k,h=1:n_s-1],F_1_mod[i,Base_chem[i],loc,mod,t,k,h+1]>=F_1_mod[i,Base_chem[i],loc,mod,t,k,h]-ΔC[(i,Base_chem[i],mod)]*y[i,loc,mod,t,k,h]-M1*(2*x[i,loc]-y[i,loc,mod,t,k,h]-y[i,loc,mod,t,k,h+1]))
+	    @constraint(m,minp[i in plant,mod1 in modes,loc in Location,t=1:n_tm,k=1:n_k,h=1:n_s],F_1_mod[i,Base_chem[i],loc,mod1,t,k,h]>=y[i,loc,mod1,t,k,h].*C_min[(i,Base_chem[i],mod1)])
+	    @constraint(m,maxp[i in plant,mod1 in modes,loc in Location,t=1:n_tm,k=1:n_k,h=1:n_s],F_1_mod[i,Base_chem[i],loc,mod1,t,k,h]<=y[i,loc,mod1,t,k,h].*C_max[(i,Base_chem[i],mod1)])
+	    @constraint(m,ramp1[i in plant,mod1 in modes,loc in Location,t=1:n_tm,k=1:n_k,h=1:n_s-1],F_1_mod[i,Base_chem[i],loc,mod1,t,k,h+1]<=F_1_mod[i,Base_chem[i],loc,mod1,t,k,h]+ΔC[(i,Base_chem[i],mod1)]*y[i,loc,mod1,t,k,h]+M1*(2*x[i,loc]-y[i,loc,mod1,t,k,h]-y[i,loc,mod1,t,k,h+1]))
+	    @constraint(m,ramp2[i in plant,mod1 in modes,loc in Location,t=1:n_tm,k=1:n_k,h=1:n_s-1],F_1_mod[i,Base_chem[i],loc,mod1,t,k,h+1]>=F_1_mod[i,Base_chem[i],loc,mod1,t,k,h]-ΔC[(i,Base_chem[i],mod1)]*y[i,loc,mod1,t,k,h]-M1*(2*x[i,loc]-y[i,loc,mod1,t,k,h]-y[i,loc,mod1,t,k,h+1]))
 	    @constraint(m,inven1[i in plant,c in chemical,loc in Location],Q_1[i,c,loc,1].==sum(w[(k,1)].*F_1[i,c,loc,1,k,h] for k in 1:n_k for h in 1:n_s)-sum(Tr_1[i,c,loc,Consumer_supplier,1]))
 	    @constraint(m,inven[i in plant,c in chemical,loc in Location,t = 2:n_tm],Q_1[i,c,loc,t].==Q_1[i,c,loc,t-1]+sum(w[(k,t)]*F_1[i,c,loc,t,k,h] for k in 1:n_k for h in 1:n_s)-sum(Tr_1[i,c,loc,Consumer_supplier,t]))
 	    @constraint(m,transdem[j in Consumer_supplier,c in c_jp[(j,)],t = 1:n_tm],sum(Tr_1[plant,c,Location,j,t])+sltr_1[c,j,t]==D[(c,j,t)])
-	    @constraint(m,powerel[i in plant,loc in Location,t=1:n_tm,k=1:n_k,h=1:n_s],0.1*Po_1[i,loc,t,k,h].==sum(0.1*F_1_mod[i,Base_chem[i],loc,mod,t,k,h]*f_lin[(i,mod)] for mod in modes)+sum(0.1*F_1[i,c,loc,t,k,h].*F_comp[(i,c)].*S[(i,c)] for c in chemical))
+	    @constraint(m,powerel[i in plant,loc in Location,t=1:n_tm,k=1:n_k,h=1:n_s],0.1*Po_1[i,loc,t,k,h].==sum(0.1*F_1_mod[i,Base_chem[i],loc,mod1,t,k,h]*f_lin[(i,mod1)] for mod1 in modes)+sum(0.1*F_1[i,c,loc,t,k,h].*F_comp[(i,c)].*S[(i,c)] for c in chemical))
 	    @constraint(m,invenboun2up[i in plant,c in chemical, loc in Location,t=1:n_tm],0.1*Q_1[i,c, loc, t] .<=0.1*80000* x[i, loc])
-	    for mod in modes 
+	    for mod1 in modes 
 	    	for i in plant
-	       		if(C_min[(i,Base_chem[i],mod)]==0 && C_max[(i,Base_chem[i],mod)]==0) 
+	       		if(C_min[(i,Base_chem[i],mod1)]==0 && C_max[(i,Base_chem[i],mod1)]==0) 
 	       			for t = 1:n_tm
 	       				for k = 1:n_k
 	       					for h = 1:n_s
 	       						for c in chemical
 	       							for loc in Location
-	    								@constraint(m,F_1_mod[i,c,loc,mod,t,k,h]==0)
+	    								@constraint(m,F_1_mod[i,c,loc,mod1,t,k,h]==0)
 	    							end
 	    						end
 	    					end
