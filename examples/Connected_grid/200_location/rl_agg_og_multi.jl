@@ -27,9 +27,9 @@ function modgen0(n_loc,Location_u,Location,Location_tr,trline,Param,n_lij,p_val,
 	    #set_optimizer_attribute(m, "DualReductions", 0)
 	    @variable(m,x[i in component,loc in Location],Int)
 	    @variable(m,nt[(i,j) in trline],Int)
-	    @variable(m,0<=y_1[i in plant,loc in Location,mod in modes,1:n_tm])
+	    @variable(m,0<=y_1[i in plant,loc in Location,mod1 in modes,1:n_tm])
 	    @variable(m,F_1[i in plant,c in chemical,loc in Location,1:n_tm])
-	    @variable(m,F_1_mod[i in plant,c in chemical,loc in Location,mod in modes,1:n_tm])
+	    @variable(m,F_1_mod[i in plant,c in chemical,loc in Location,mod1 in modes,1:n_tm])
 	    @variable(m,0<=Q_1[i in plant,c in chemical,loc in Location,1:n_tm]<=80000)
 	    @variable(m,Tr_1[i in plant,c in chemical,loc in Location,j in Consumer_supplier,1:n_tm])
 	    @variable(m,0<=sltr_1[c in chemical,j in Consumer_supplier,1:n_tm])
@@ -99,22 +99,22 @@ function modgen0(n_loc,Location_u,Location,Location_tr,trline,Param,n_lij,p_val,
 	    coc = 0.1
 	    
 	    @constraint(m,modesxy[i in plant,loc in Location,t=1:n_tm],sum(y[i,loc,modes,t])==x[i,loc]*d_m[t]*24)
-	    @constraint(m,stoic[i in plant,mod in modes,c in chemical,c1 in chemical,loc in Location,t=1:n_tm],1000*F_1_mod[i,c,loc,mod,t].*α[i,c1,mod]./mw[(c,)].==1000*F_1_mod[i,c1,loc,mod,t].*α[i,c,mod]./mw[(c1,)])
+	    @constraint(m,stoic[i in plant,mod1 in modes,c in chemical,c1 in chemical,loc in Location,t=1:n_tm],1000*F_1_mod[i,c,loc,mod1,t].*α[i,c1,mod1]./mw[(c,)].==1000*F_1_mod[i,c1,loc,mod1,t].*α[i,c,mod1]./mw[(c1,)])
 	    @constraint(m,stoichadd[i in plant,c in chemical,loc in Location,t=1:n_tm],F_1[i,c,loc,t].==sum(F_1_mod[i,c,loc,modes,t]))
-	    @constraint(m,minp[i in plant,mod in modes,loc in Location,t=1:n_tm],F_1_mod[i,Base_chem[i],loc,mod,t]>=y[i,loc,mod,t].*C_min[(i,Base_chem[i],mod)])
-	    @constraint(m,maxp[i in plant,mod in modes,loc in Location,t=1:n_tm],F_1_mod[i,Base_chem[i],loc,mod,t]<=y[i,loc,mod,t].*C_max[(i,Base_chem[i],mod)])
+	    @constraint(m,minp[i in plant,mod1 in modes,loc in Location,t=1:n_tm],F_1_mod[i,Base_chem[i],loc,mod1,t]>=y[i,loc,mod1,t].*C_min[(i,Base_chem[i],mod1)])
+	    @constraint(m,maxp[i in plant,mod1 in modes,loc in Location,t=1:n_tm],F_1_mod[i,Base_chem[i],loc,mod1,t]<=y[i,loc,mod1,t].*C_max[(i,Base_chem[i],mod1)])
 	    @constraint(m,inven1[i in plant,c in chemical,loc in Location],Q_1[i,c,loc,1].==F_1[i,c,loc,1] -sum(Tr_1[i,c,loc,Consumer_supplier,1]))
 	    @constraint(m,inven[i in plant,c in chemical,loc in Location,t = 2:n_tm],Q_1[i,c,loc,t].==Q_1[i,c,loc,t-1]+F_1[i,c,loc,t]-sum(Tr_1[i,c,loc,Consumer_supplier,t]))
 	    @constraint(m,transdem[j in Consumer_supplier,c in c_jp[(j,)],t = 1:n_tm],sum(Tr_1[plant,c,Location,j,t])+sltr_1[c,j,t]==D[(c,j,t)])
-	    @constraint(m,powerel[i in plant,loc in Location,t=1:n_tm],0.1*Po_1[i,loc,t].==sum(0.1*F_1_mod[i,Base_chem[i],loc,mod,t]*f_lin[(i,mod)] for mod in modes)+sum(0.1*F_1[i,c,loc,t].*F_comp[(i,c)].*S[(i,c)] for c in chemical))
+	    @constraint(m,powerel[i in plant,loc in Location,t=1:n_tm],0.1*Po_1[i,loc,t].==sum(0.1*F_1_mod[i,Base_chem[i],loc,mod1,t]*f_lin[(i,mod1)] for mod1 in modes)+sum(0.1*F_1[i,c,loc,t].*F_comp[(i,c)].*S[(i,c)] for c in chemical))
 	    @constraint(m,invenboun2up[i in plant,c in chemical, loc in Location,t=1:n_tm],0.1*Q_1[i,c, loc, t] .<=0.1*80000* x[i, loc])
-	    for mod in modes 
+	    for mod1 in modes 
 	    	for i in plant
-	       		if(C_min[(i,Base_chem[i],mod)]==0 && C_max[(i,Base_chem[i],mod)]==0) 
+	       		if(C_min[(i,Base_chem[i],mod1)]==0 && C_max[(i,Base_chem[i],mod1)]==0) 
 	       			for t = 1:n_tm
 	       				for c in chemical
 	       					for loc in Location
-	    						@constraint(m,F_1_mod[i,c,loc,mod,t]==0)
+	    						@constraint(m,F_1_mod[i,c,loc,mod1,t]==0)
 	    					end
 	    				end
 	    			end
