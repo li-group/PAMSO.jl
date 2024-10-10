@@ -112,7 +112,7 @@ function modgen(n_loc,Location,Location_tr,trline,Param,plan_max,n_lij,n_bun_agg
 	    @constraint(m,inven[i in plant,c in chemical,loc in Location,t = 2:n_tm],Q_1[i,c,loc,t].==Q_1[i,c,loc,t-1]+sum(w[(k,t)]*F_1[i,c,loc,t,k,h] for k in 1:n_k for h in 1:n_s)-sum(Tr_1[i,c,loc,Consumer_supplier,t]))
 	    @constraint(m,transdem[j in Consumer_supplier,c in c_jp[(j,)],t = 1:n_tm],sum(Tr_1[plant,c,Location,j,t])+sltr_1[c,j,t]==D[(c,j,t)])
 	    @constraint(m,powerel[i in plant,loc in Location,t=1:n_tm,k=1:n_k,h=1:n_s],0.1*Po_1[i,loc,t,k,h].==sum(0.1*F_1_mod[i,Base_chem[i],loc,mod1,t,k,h]*f_lin[(i,mod1)] for mod1 in modes)+sum(0.1*F_1[i,c,loc,t,k,h].*F_comp[(i,c)].*S[(i,c)] for c in chemical))
-	    @constraint(m,invenboun2up[i in plant,c in chemical, loc in Location,t=1:n_tm],0.1*Q_1[i,c, loc, t] .<=0.1*Qb* x[i, loc])
+	    @constraint(m,invenboun2up[i in plant,c in chemical, loc in Location,t=1:n_tm],0.1*Q_1[i,c, loc, t] .<=0.1*80000* x[i, loc])
 	    for mod1 in modes 
 	    	for i in plant
 	       		if(C_min[(i,Base_chem[i],mod1)]==0 && C_max[(i,Base_chem[i],mod1)]==0) 
