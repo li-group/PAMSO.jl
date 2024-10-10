@@ -32,7 +32,7 @@ The solution can be compared to the solution from the full-space model. The full
 ## [Running Cases](#example)
 We have a few examples of [cases](case.md) in the examples folder. They are listed in documentation sections. The associated PAMSO block can be accessed using the gen_problem(case) function. For example, to access the generator expansion case, we can use the following code:
 ```julia
-  PAMSO.toy = gen_problem("Generator expansion")
+  PAMSO_toy = PAMSO.gen_problem("Generator expansion")
 ```
 The overall structure of the PAMSO block and the associated functions is shown in [here](func_struct.md) 
 ## [Citation](#citation)
