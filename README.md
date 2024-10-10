@@ -42,7 +42,7 @@ The solution can be compared to the solution from the full-space model. The full
 ## [Running Cases](#example)
 We have a few examples of cases in the examples folder. They are listed in documentation sections. The associated PAMSO block can be accessed using the gen_problem(case) function. For example, to access the generator expansion case, we can use the following code:
 ```julia
-  PAMSO.toy = gen_problem("Generator expansion")
+  PAMSO_toy = PAMSO.gen_problem("Generator expansion")
 ```
 ## [Citation](#citation)
 Cite us 
