@@ -46,4 +46,15 @@ We have a few examples of [cases](case.md) in the examples folder. They are list
 ```
 The overall structure of the PAMSO block and the associated functions is shown in [here](func_struct.md) 
 ## [Citation](#citation)
-Cite us  
+Cite us
+```
+@misc{ramanujam2024pamsoparametricautotuningmultitime,
+      title={PAMSO: Parametric Autotuning Multi-time Scale Optimization Algorithm}, 
+      author={Asha Ramanujam and Can Li},
+      year={2024},
+      eprint={2407.16570},
+      archivePrefix={arXiv},
+      primaryClass={math.OC},
+      url={https://arxiv.org/abs/2407.16570}, 
+}
+  ``` 
