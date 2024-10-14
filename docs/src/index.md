@@ -7,7 +7,7 @@ To intall the package and its dependencies run the following in julia
 
 ```julia
   using Pkg
-  Pkg.add(url =)
+  Pkg.add(url = "https://github.com/li-group/PAMSO.jl.git")
 ```
   In addition, follow the instructions on [Gurobi.jl](https://github.com/jump-dev/Gurobi.jl) to install the solver Gurobi.
 
