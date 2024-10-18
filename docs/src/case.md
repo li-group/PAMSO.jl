@@ -20,6 +20,6 @@ The list of cases is in the next section
 | Connected network: 200 locations   | Integrated planning and scheduling for 200 location network connected to external sources of power                                                           | 2                    |
 | Isolated microgrid: 20 locations  | Integrated planning and scheduling for 20 location isolated microgrid                                                                                        | 2                    |
 
-
+Note: The integrated planning and scheduling full-space models are approximate due to lack of beforehand knowledge of the number of power lines. Hence we bundle them in size of 20.
 
 [Back to Home](index.md)
