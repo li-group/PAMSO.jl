@@ -37,8 +37,8 @@ df_loc = DataFrame(CSV.File(df_loc_path))
 	  for j = 1:n_loc+1
 	    if (i != j )
 	      push!(trline,Tuple([Location_tr[i],Location_tr[j]]))
-			n_bun[Tuple([Location_tr[i],Location_tr[j]])] = 1
-	       n_bun[Tuple([Location_tr[j],Location_tr[i]])] = 1
+			n_bun[Tuple([Location_tr[i],Location_tr[j]])] = 20
+	       n_bun[Tuple([Location_tr[j],Location_tr[i]])] = 20
 	    end
 	  end
 	end
