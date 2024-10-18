@@ -45,8 +45,8 @@ df_loc = DataFrame(CSV.File(df_loc_path))
 	  for j = 1:n_loc+n_u
 	    if (i != j && dist[Location_tr[i],Location_tr[j]]<=35 && !(Location_tr[i] in Location_u && Location_tr[j] in Location_u))
 	      push!(trline,Tuple([Location_tr[i],Location_tr[j]]))
-			n_bun[Tuple([Location_tr[i],Location_tr[j]])] = 1
-	       n_bun[Tuple([Location_tr[j],Location_tr[i]])] = 1
+			n_bun[Tuple([Location_tr[i],Location_tr[j]])] = 20
+	       n_bun[Tuple([Location_tr[j],Location_tr[i]])] = 20
 	       		
 
 	       	
