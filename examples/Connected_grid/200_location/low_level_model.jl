@@ -1,6 +1,9 @@
 function gen_lowlevel(high_level_des)
 
 df_loc = DataFrame(CSV.File(df_loc_path))
+	if(high_level_des["obj"]==10^10)
+		return 10^10
+	end
 	n_loc_og = 200
 	n_u = 22
 	n_loc = n_loc_og
