@@ -63,9 +63,13 @@ function gen_highlevel(p_val)
 	set_optimizer_attribute(m,"TimeLimit",300)
 	set_optimizer_attribute(m, "MIPGap", 0.0)
 	optimize!(m)
-	high_level_des=Dict()
+	if (termination_status(m)==MOI.INFEASIBLE || result_count(m)==0)
+		high_level_des["obj"] = 10^10
+		return high_level_des
+	end
 	high_level_des['x'] = value.(m[:x])
 	high_level_des["nt"] = value.(m[:nt])
+	high_level_des["obj"] = objective_value(m)
 	
 	return high_level_des
 end
