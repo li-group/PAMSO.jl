@@ -20,8 +20,8 @@ function gen_highlevel(p_val)
         sp = DataFrame(XLSX.readtable(file,"Supply"))
         push!(supply,sp)
     end
-    days = 7
-    num_day_week = 7
+    days = 3
+    num_day_week = 3
     horizon = days*24
     data = create_model_data(task, resources, network, supply, horizon,days,num_day_week)
     
