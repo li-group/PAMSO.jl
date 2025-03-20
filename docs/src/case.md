@@ -12,6 +12,7 @@ The list of cases is in the next section
 | Case                              | Description                                                                                                                                                  | Number of parameters |
 | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------- |
 | Generator_expansion               | Generator expansion for a day with 2 generators.                                                                                                             | 3                    |
+| RTN: 3 days                       | Integrated design and scheduling in an RTN for 3 days                                                                                         | 6                    |
 | RTN: 1 week                       | Integrated design and scheduling in an RTN for 1 representative week                                                                                         | 6                    |
 | RTN: 4 week (disaggregated)       | Integrated design and scheduling in an RTN for 4 representative weeks with a high-level model formulated based on explicitly having the demand for each week | 6                    |
 | RTN: 4 week (aggregated)          | Integrated design and scheduling in an RTN for 4 representative weeks with a high-level model formulated based on the average of daily demand for the weeks  | 6                    |
