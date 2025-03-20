@@ -20,8 +20,8 @@ network = DataFrame(XLSX.readtable(file,"Network"))
 supply = []
 sp = DataFrame(XLSX.readtable(file,"Supply"))
 push!(supply,sp)
-days = 7
-num_day_week = 7
+days = 3
+num_day_week = 3
 horizon = days*24
 data = create_model_data(task, resources, network, supply, horizon,days,num_day_week)
 RTN_model= RTN(data)
