@@ -42,6 +42,7 @@ function solve_model_full(rtn::RTN,ret_mod = 0,Vmaxval = Nothing,Xmaxval = Nothi
         nu_reac = data["nu_reac"]
         idx_reac = data["idx_reac"]
         num_day_week = data["num_day_week"]
+        num_day_week = 3
         weeks = Int(days/num_day_week)
         N_cost = data["N_cost"]
 
