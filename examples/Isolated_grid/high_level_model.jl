@@ -70,6 +70,7 @@ function gen_highlevel(p_val)
 		high_level_des["obj"] = 10^10
 		return high_level_des
 	end
+	high_level_des = Dict()
 	high_level_des['x'] = value.(m[:x])
 	high_level_des["nt"] = value.(m[:nt])
 	high_level_des["obj"] = objective_value(m)
