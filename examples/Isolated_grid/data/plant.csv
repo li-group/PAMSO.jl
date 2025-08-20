@@ -60,6 +60,7 @@ theta,OD,Shut,2,
 theta,Shut,SC,2,
 theta,Shut,OD,2,
 theta,Shut,Shut,0,
-f_lin,,SC,2120.566,KJ/ton
-f_lin,,OD,1413.106,KJ/ton
-f_lin,,Shut,0,KJ/ton
+f_lin,,SC,2120.566,KWh/ton
+f_lin,,OD,1413.106,KWh/ton
+f_lin,,Shut,0,KWh/ton
+
