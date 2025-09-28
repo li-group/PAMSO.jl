@@ -26,7 +26,7 @@ function modgen0(n_loc,Location,Location_tr,trline,Param,n_lij,p_val)
 	    m = Model(Gurobi.Optimizer)
 	    set_optimizer_attribute(m, "DualReductions", 0)
 	    @variable(m,x[i in component,loc in Location],Int)
-	    @variable(m,nt[(i,j) in trline],Int)
+	    @variable(m,0<=nt[(i,j) in trline],Int)
 	    @variable(m,0<=y_1[i in plant,loc in Location,mod1 in modes,1:n_tm])
 	    @variable(m,F_1[i in plant,c in chemical,loc in Location,1:n_tm])
 	    @variable(m,F_1_mod[i in plant,c in chemical,loc in Location,mod1 in modes,1:n_tm])
@@ -213,3 +213,4 @@ function modgen0(n_loc,Location,Location_tr,trline,Param,n_lij,p_val)
 	m = obj(m)
 	return m
 end
+
